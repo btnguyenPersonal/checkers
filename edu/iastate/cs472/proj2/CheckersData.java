@@ -76,6 +76,11 @@ public class CheckersData {
     void setUpGame() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
+                board[row][col] = EMPTY;
+            }
+        }
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
                 if (row % 2 == col % 2 && row < 3) {
                     board[row][col] = BLACK;
                 }
@@ -132,6 +137,10 @@ public class CheckersData {
         // 2. if this move is a jump, remove the captured piece
         // 3. if the piece moves into the kings row on the opponent's side of the board,
         // crowned it as a king
+    }
+
+    void isKinging(int fromRow, int fromCol, int toRow, int toCol) {
+        //TODO
     }
 
     void removeJumpedPiece(int fromRow, int fromCol, int toRow, int toCol) {
