@@ -1,0 +1,121 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ben/git/checkers/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210905.0/
+ANSI_RED	edu/iastate/cs472/proj2/CheckersData.java	/^    public static final String ANSI_RED = "\\u001B[31m";$/;"	f	class:CheckersData
+ANSI_RESET	edu/iastate/cs472/proj2/CheckersData.java	/^    public static final String ANSI_RESET = "\\u001B[0m";$/;"	f	class:CheckersData
+ANSI_YELLOW	edu/iastate/cs472/proj2/CheckersData.java	/^    public static final String ANSI_YELLOW = "\\u001B[33m";$/;"	f	class:CheckersData
+AdversarialSearch	edu/iastate/cs472/proj2/AdversarialSearch.java	/^public abstract class AdversarialSearch {$/;"	c
+AlphaBetaSearch	edu/iastate/cs472/proj2/AlphaBetaSearch.java	/^public class AlphaBetaSearch extends AdversarialSearch {$/;"	c
+BLACK	edu/iastate/cs472/proj2/CheckersData.java	/^              BLACK = 3,$/;"	f	class:CheckersData
+BLACK_KING	edu/iastate/cs472/proj2/CheckersData.java	/^              BLACK_KING = 4;$/;"	f	class:CheckersData
+Board	edu/iastate/cs472/proj2/Checkers.java	/^        Board() {$/;"	m	class:Checkers.Board
+Board	edu/iastate/cs472/proj2/Checkers.java	/^    private class Board extends JPanel implements ActionListener, MouseListener {$/;"	c	class:Checkers
+CSNode	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode(){}$/;"	m	class:CSNode
+CSNode	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode(E data)$/;"	m	class:CSNode
+CSNode	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode(E data, CSNode<E> child, CSNode<E> sibling)$/;"	m	class:CSNode
+CSNode	edu/iastate/cs472/proj2/CSNode.java	/^public class CSNode<E>$/;"	c
+CSTree	edu/iastate/cs472/proj2/CSTree.java	/^public class CSTree<E> $/;"	c
+Checkers	edu/iastate/cs472/proj2/Checkers.java	/^    public Checkers() {$/;"	m	class:Checkers
+Checkers	edu/iastate/cs472/proj2/Checkers.java	/^public class Checkers extends JPanel {$/;"	c
+CheckersData	edu/iastate/cs472/proj2/CheckersData.java	/^    CheckersData() {$/;"	m	class:CheckersData
+CheckersData	edu/iastate/cs472/proj2/CheckersData.java	/^public class CheckersData {$/;"	c
+CheckersMove	edu/iastate/cs472/proj2/CheckersMove.java	/^    CheckersMove() {$/;"	m	class:CheckersMove
+CheckersMove	edu/iastate/cs472/proj2/CheckersMove.java	/^    CheckersMove(int r1, int c1, int r2, int c2) {$/;"	m	class:CheckersMove
+CheckersMove	edu/iastate/cs472/proj2/CheckersMove.java	/^public class CheckersMove {$/;"	c
+EMPTY	edu/iastate/cs472/proj2/CheckersData.java	/^        EMPTY = 0,$/;"	f	class:CheckersData
+MonteCarloTreeSearch	edu/iastate/cs472/proj2/MonteCarloTreeSearch.java	/^public class MonteCarloTreeSearch extends AdversarialSearch {$/;"	c
+PreBoard	edu/iastate/cs472/proj2/Checkers.java	/^    	PreBoard()$/;"	m	class:Checkers.PreBoard
+PreBoard	edu/iastate/cs472/proj2/Checkers.java	/^    public static class PreBoard extends JPanel{$/;"	c	class:Checkers
+RED	edu/iastate/cs472/proj2/CheckersData.java	/^              RED = 1,$/;"	f	class:CheckersData
+RED_KING	edu/iastate/cs472/proj2/CheckersData.java	/^              RED_KING = 2,$/;"	f	class:CheckersData
+actionPerformed	edu/iastate/cs472/proj2/Checkers.java	/^        public void actionPerformed(ActionEvent evt) {$/;"	m	class:Checkers.Board
+addMove	edu/iastate/cs472/proj2/CheckersMove.java	/^    void addMove(int r, int c){$/;"	m	class:CheckersMove
+agentBoard	edu/iastate/cs472/proj2/Checkers.java	/^        CheckersData agentBoard;$/;"	f	class:Checkers.Board
+aiKey	edu/iastate/cs472/proj2/Checkers.java	/^	static int aiKey = 0;$/;"	f	class:Checkers
+board	edu/iastate/cs472/proj2/AdversarialSearch.java	/^    protected CheckersData board;$/;"	f	class:AdversarialSearch
+board	edu/iastate/cs472/proj2/Checkers.java	/^        CheckersData board;  \/\/ The data for the checkers board is kept here.$/;"	f	class:Checkers.Board
+board	edu/iastate/cs472/proj2/CheckersData.java	/^    int[][] board;  \/\/ board[r][c] is the contents of row r, column c.$/;"	f	class:CheckersData
+checkIf	edu/iastate/cs472/proj2/CheckersData.java	/^    boolean checkIf(int row, int col, int color) {$/;"	m	class:CheckersData
+chengeValue	edu/iastate/cs472/proj2/Checkers.java	/^    static boolean chengeValue = false;$/;"	f	class:Checkers
+clone	edu/iastate/cs472/proj2/CheckersMove.java	/^    public CheckersMove clone() {$/;"	m	class:CheckersMove
+cols	edu/iastate/cs472/proj2/CheckersMove.java	/^    ArrayList<Integer> cols = new ArrayList<Integer>();$/;"	f	class:CheckersMove
+copyBoard	edu/iastate/cs472/proj2/Checkers.java	/^    	private CheckersData copyBoard(CheckersData board)$/;"	m	class:Checkers.PreBoard	file:
+copyBoard	edu/iastate/cs472/proj2/Checkers.java	/^        private CheckersData copyBoard(CheckersData board)$/;"	m	class:Checkers.Board	file:
+currentPlayer	edu/iastate/cs472/proj2/Checkers.java	/^        int currentPlayer;      \/\/ Whose turn is it now?  The possible values$/;"	f	class:Checkers.Board
+data	edu/iastate/cs472/proj2/CSNode.java	/^  protected E data;$/;"	f	class:CSNode
+decideAIplayer	edu/iastate/cs472/proj2/Checkers.java	/^        public void decideAIplayer()$/;"	m	class:Checkers.Board
+displayBoard	edu/iastate/cs472/proj2/Checkers.java	/^        CheckersData displayBoard;$/;"	f	class:Checkers.Board
+doClickSquare	edu/iastate/cs472/proj2/Checkers.java	/^        void doClickSquare(int row, int col) {$/;"	m	class:Checkers.Board
+doMakeMove	edu/iastate/cs472/proj2/Checkers.java	/^        void doMakeMove(CheckersMove move) {	$/;"	m	class:Checkers.Board
+doNewGame	edu/iastate/cs472/proj2/Checkers.java	/^        void doNewGame() {$/;"	m	class:Checkers.Board
+doResign	edu/iastate/cs472/proj2/Checkers.java	/^        void doResign() {$/;"	m	class:Checkers.Board
+drawBoard	edu/iastate/cs472/proj2/Checkers.java	/^    	public void drawBoard(CheckersData currentBoard, CheckersMove move)$/;"	m	class:Checkers.PreBoard
+edu.iastate.cs472.proj2	edu/iastate/cs472/proj2/AdversarialSearch.java	/^package edu.iastate.cs472.proj2;$/;"	p
+edu.iastate.cs472.proj2	edu/iastate/cs472/proj2/AlphaBetaSearch.java	/^package edu.iastate.cs472.proj2;$/;"	p
+edu.iastate.cs472.proj2	edu/iastate/cs472/proj2/CSNode.java	/^package edu.iastate.cs472.proj2;$/;"	p
+edu.iastate.cs472.proj2	edu/iastate/cs472/proj2/CSTree.java	/^package edu.iastate.cs472.proj2; $/;"	p
+edu.iastate.cs472.proj2	edu/iastate/cs472/proj2/Checkers.java	/^package edu.iastate.cs472.proj2;$/;"	p
+edu.iastate.cs472.proj2	edu/iastate/cs472/proj2/CheckersData.java	/^package edu.iastate.cs472.proj2;$/;"	p
+edu.iastate.cs472.proj2	edu/iastate/cs472/proj2/CheckersMove.java	/^package edu.iastate.cs472.proj2;$/;"	p
+edu.iastate.cs472.proj2	edu/iastate/cs472/proj2/MonteCarloTreeSearch.java	/^package edu.iastate.cs472.proj2;$/;"	p
+firstChild	edu/iastate/cs472/proj2/CSNode.java	/^  protected CSNode<E> firstChild;$/;"	f	class:CSNode
+gameInProgress	edu/iastate/cs472/proj2/Checkers.java	/^        boolean gameInProgress; \/\/ Is a game currently in progress?$/;"	f	class:Checkers.Board
+gameOver	edu/iastate/cs472/proj2/Checkers.java	/^        void gameOver(String str) {$/;"	m	class:Checkers.Board
+getChild	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode<E> getChild()$/;"	m	class:CSNode
+getData	edu/iastate/cs472/proj2/CSNode.java	/^  public E getData()$/;"	m	class:CSNode
+getLegalJumpsFrom	edu/iastate/cs472/proj2/CheckersData.java	/^    CheckersMove[] getLegalJumpsFrom(int player, int row, int col) {$/;"	m	class:CheckersData
+getLegalMoves	edu/iastate/cs472/proj2/CheckersData.java	/^    CheckersMove[] getLegalMoves(int player) {$/;"	m	class:CheckersData
+getLegalMovesSingle	edu/iastate/cs472/proj2/CheckersData.java	/^    CheckersMove[] getLegalMovesSingle(int player, int row, int col) {$/;"	m	class:CheckersData
+getOppositeColor	edu/iastate/cs472/proj2/CheckersData.java	/^    private int getOppositeColor(int player) {$/;"	m	class:CheckersData	file:
+getSibling	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode<E> getSibling()$/;"	m	class:CSNode
+isBlack	edu/iastate/cs472/proj2/CheckersData.java	/^    private boolean isBlack(int row, int col) {$/;"	m	class:CheckersData	file:
+isJump	edu/iastate/cs472/proj2/CheckersMove.java	/^    boolean isJump() {$/;"	m	class:CheckersMove
+isKing	edu/iastate/cs472/proj2/CheckersData.java	/^    private boolean isKing(int row, int col) {$/;"	m	class:CheckersData	file:
+isLeaf	edu/iastate/cs472/proj2/CSNode.java	/^  public boolean isLeaf()$/;"	m	class:CSNode
+isRed	edu/iastate/cs472/proj2/CheckersData.java	/^    private boolean isRed(int row, int col) {$/;"	m	class:CheckersData	file:
+legalMoves	edu/iastate/cs472/proj2/AdversarialSearch.java	/^    protected CheckersMove[] legalMoves() {$/;"	m	class:AdversarialSearch
+legalMoves	edu/iastate/cs472/proj2/Checkers.java	/^        CheckersMove[] legalMoves;  \/\/ An array containing the legal moves for the$/;"	f	class:Checkers.Board
+main	edu/iastate/cs472/proj2/Checkers.java	/^	public static void main(String[] args) {$/;"	m	class:Checkers
+makeMove	edu/iastate/cs472/proj2/AdversarialSearch.java	/^    public abstract CheckersMove makeMove(CheckersMove[] legalMoves);$/;"	m	class:AdversarialSearch
+makeMove	edu/iastate/cs472/proj2/AlphaBetaSearch.java	/^    public CheckersMove makeMove(CheckersMove[] legalMoves) {$/;"	m	class:AlphaBetaSearch
+makeMove	edu/iastate/cs472/proj2/CheckersData.java	/^    void makeMove(CheckersMove move) {$/;"	m	class:CheckersData
+makeMove	edu/iastate/cs472/proj2/CheckersData.java	/^    void makeMove(int fromRow, int fromCol, int toRow, int toCol) {$/;"	m	class:CheckersData
+makeMove	edu/iastate/cs472/proj2/MonteCarloTreeSearch.java	/^    public CheckersMove makeMove(CheckersMove[] legalMoves) {$/;"	m	class:MonteCarloTreeSearch
+message	edu/iastate/cs472/proj2/Checkers.java	/^    private JLabel message;  \/\/ Label for displaying messages to the user.$/;"	f	class:Checkers	file:
+mouseClicked	edu/iastate/cs472/proj2/Checkers.java	/^        public void mouseClicked(MouseEvent evt) { }$/;"	m	class:Checkers.Board
+mouseEntered	edu/iastate/cs472/proj2/Checkers.java	/^        public void mouseEntered(MouseEvent evt) { }$/;"	m	class:Checkers.Board
+mouseExited	edu/iastate/cs472/proj2/Checkers.java	/^        public void mouseExited(MouseEvent evt) { }$/;"	m	class:Checkers.Board
+mousePressed	edu/iastate/cs472/proj2/Checkers.java	/^        public void mousePressed(MouseEvent evt) {$/;"	m	class:Checkers.Board
+mouseReleased	edu/iastate/cs472/proj2/Checkers.java	/^        public void mouseReleased(MouseEvent evt) { }$/;"	m	class:Checkers.Board
+moveAI	edu/iastate/cs472/proj2/Checkers.java	/^    	CheckersMove moveAI;$/;"	f	class:Checkers.PreBoard
+newGameButton	edu/iastate/cs472/proj2/Checkers.java	/^    private JButton newGameButton;  \/\/ Button for starting a new game.$/;"	f	class:Checkers	file:
+nextSibling	edu/iastate/cs472/proj2/CSNode.java	/^  protected CSNode<E> nextSibling;$/;"	f	class:CSNode
+paintComponent	edu/iastate/cs472/proj2/Checkers.java	/^    	public void paintComponent(Graphics g) {$/;"	m	class:Checkers.PreBoard
+paintComponent	edu/iastate/cs472/proj2/Checkers.java	/^        public void paintComponent(Graphics g) {$/;"	m	class:Checkers.Board
+pieceAt	edu/iastate/cs472/proj2/CheckersData.java	/^    int pieceAt(int row, int col) {$/;"	m	class:CheckersData
+player_1	edu/iastate/cs472/proj2/Checkers.java	/^        AdversarialSearch player_1; \/\/ AI player, Alpha-beta$/;"	f	class:Checkers.Board
+player_2	edu/iastate/cs472/proj2/Checkers.java	/^        AdversarialSearch player_2; \/\/ MCTS$/;"	f	class:Checkers.Board
+preBoard	edu/iastate/cs472/proj2/Checkers.java	/^    	CheckersData preBoard;$/;"	f	class:Checkers.PreBoard
+premessage	edu/iastate/cs472/proj2/Checkers.java	/^    private static JLabel premessage;$/;"	f	class:Checkers	file:
+previous	edu/iastate/cs472/proj2/Checkers.java	/^    static PreBoard previous = new PreBoard(); \/\/ Display previous board$/;"	f	class:Checkers
+resignButton	edu/iastate/cs472/proj2/Checkers.java	/^    private JButton resignButton;   \/\/ Button that a player can use to end$/;"	f	class:Checkers	file:
+root	edu/iastate/cs472/proj2/CSTree.java	/^	CSNode<E> root;$/;"	f	class:CSTree
+rows	edu/iastate/cs472/proj2/CheckersMove.java	/^    ArrayList<Integer> rows = new ArrayList<Integer>();$/;"	f	class:CheckersMove
+selectedCol	edu/iastate/cs472/proj2/Checkers.java	/^        int selectedRow, selectedCol;  \/\/ If the current player has selected a piece to$/;"	f	class:Checkers.Board
+selectedRow	edu/iastate/cs472/proj2/Checkers.java	/^        int selectedRow, selectedCol;  \/\/ If the current player has selected a piece to$/;"	f	class:Checkers.Board
+setCheckersData	edu/iastate/cs472/proj2/AdversarialSearch.java	/^    protected void setCheckersData(CheckersData board) {$/;"	m	class:AdversarialSearch
+setChild	edu/iastate/cs472/proj2/CSNode.java	/^  public void setChild(CSNode<E> child)$/;"	m	class:CSNode
+setData	edu/iastate/cs472/proj2/CSNode.java	/^  public void setData(E data)$/;"	m	class:CSNode
+setSibling	edu/iastate/cs472/proj2/CSNode.java	/^  public void setSibling(CSNode<E> sibling)$/;"	m	class:CSNode
+setUpGame	edu/iastate/cs472/proj2/CheckersData.java	/^    void setUpGame() {$/;"	m	class:CheckersData
+size	edu/iastate/cs472/proj2/CSTree.java	/^	int size;$/;"	f	class:CSTree
+timeDelay	edu/iastate/cs472/proj2/Checkers.java	/^    public void timeDelay(int t) {$/;"	m	class:Checkers
+toString	edu/iastate/cs472/proj2/CheckersData.java	/^    public String toString() {$/;"	m	class:CheckersData

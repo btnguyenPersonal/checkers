@@ -75,9 +75,16 @@ public class CheckersData {
      * and all such squares in the last three rows contain red squares.
      */
     void setUpGame() {
-        // TODO
-    	// 
-    	// Set up the board with pieces BLACK, RED, and EMPTY
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (row % 2 == col % 2 && row < 3) {
+                    board[row][col] = BLACK;
+                }
+                if (row % 2 == col % 2 && row > 4) {
+                    board[row][col] = RED;
+                }
+            }
+        }
     }
 
 
@@ -138,7 +145,10 @@ public class CheckersData {
      */
     CheckersMove[] getLegalMoves(int player) {
         // TODO
-        return null;
+        CheckersMove[] output = new CheckersMove[2];
+        output[0] = new CheckersMove(1,1,0,0);
+        output[1] = new CheckersMove(1,1,2,2);
+        return output;
     }
 
 
