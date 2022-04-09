@@ -256,7 +256,7 @@ public class CheckersData {
     boolean boardContainsJumps(int player) {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if (board[row][col] == BLACK || board[row][col] == BLACK_KING) {
+                if (isType(player, board[row][col])) {
                     ArrayList<CheckersMove> jumps = getHelperLegalJumpsFrom(player, row, col);
                     if (jumps.size() > 0) {
                         return true;
