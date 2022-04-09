@@ -162,30 +162,42 @@ public class CheckersData {
      */
     CheckersMove[] getLegalMoves(int player) {
         ArrayList<CheckersMove> legalMoves = new ArrayList<CheckersMove>();
-        if (boardContainsJumps(player)) {
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-                    ArrayList<CheckersMove> moves = getHelperLegalJumpsFrom(player, row, col);
-                    for (int i = 0; i < moves.size(); i++) {
-                        legalMoves.add(moves.get(i));
-                    }
-                }
-            }
-        } else {
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-                    ArrayList<CheckersMove> moves = getLegalMovesSingle(board[row][col], row, col);
-                    for (int i = 0; i < moves.size(); i++) {
-                        legalMoves.add(moves.get(i));
-                    }
-                }
-            }
-        }
+        legalMoves = getLegalMovesHelper(player, boardContainsJumps(player));
         CheckersMove[] output = new CheckersMove[legalMoves.size()];
         for (int i = 0; i < legalMoves.size(); i++) {
+            System.out.println(legalMoves.get(i).toString());
             output[i] = legalMoves.get(i);
         }
         return output;
+    }
+
+    ArrayList<CheckersMove> getLegalMovesHelper(int player, boolean hasJumps) {
+        ArrayList<CheckersMove> moves = new ArrayList<CheckersMove>();
+        ArrayList<CheckersMove> output = new ArrayList<CheckersMove>();
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (isType(player, board[row][col])) {
+                    if (hasJumps) {
+                        moves = getHelperLegalJumpsFrom(player, row, col);
+                    } else {
+                        moves = getLegalMovesSingle(board[row][col], row, col);
+                    }
+                }
+                for (int i = 0; i < moves.size(); i++) {
+                    output.add(moves.get(i));
+                }
+            }
+        }
+        return output;
+    }
+
+    boolean isType(int player, int boardSquare) {
+        if (player == RED) {
+            return boardSquare == RED || boardSquare == RED_KING;
+        } else if (player == BLACK) {
+            return boardSquare == BLACK || boardSquare == BLACK_KING;
+        }
+        return false;
     }
 
     ArrayList<CheckersMove> getLegalMovesSingle(int player, int row, int col) {
@@ -249,7 +261,7 @@ public class CheckersData {
                     }
                 }
             }
-        } else {
+        } else if (player == BLACK) {
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
                     if (board[row][col] == RED || board[row][col] == RED_KING) {
@@ -266,6 +278,9 @@ public class CheckersData {
 
     ArrayList<CheckersMove> getHelperLegalJumpsFrom(int player, int row, int col) {
         ArrayList<CheckersMove> legalJumps = new ArrayList<CheckersMove>();
+        if (board[row][col] == EMPTY) {
+            System.out.println("hihihiihiihii");
+        }
         switch (player) {
             case RED:
                 if (checkIf(row, col, RED_KING)) {
