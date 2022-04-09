@@ -125,22 +125,24 @@ public class CheckersData {
      * @param toCol   column index of the to square
      */
     void makeMove(int fromRow, int fromCol, int toRow, int toCol) {
-        board[toRow][toCol] = board[fromRow][fromCol];
-        board[fromRow][fromCol] = EMPTY;
-        CheckersMove move = new CheckersMove(fromRow, fromCol, toRow, toCol);
-        if (move.isJump()) {
-            removeJumpedPiece(fromRow, fromCol, toRow, toCol);
-        }
         // Update the board for the given move. You need to take care of the following
         // situations:
         // 1. move the piece from (fromRow,fromCol) to (toRow,toCol)
         // 2. if this move is a jump, remove the captured piece
         // 3. if the piece moves into the kings row on the opponent's side of the board,
         // crowned it as a king
-    }
-
-    void isKinging(int fromRow, int fromCol, int toRow, int toCol) {
-        //TODO
+        if (isType(RED, board[fromRow][fromCol]) && toRow == 0) {
+            board[toRow][toCol] = RED_KING;
+        } else if (isType(BLACK, board[fromRow][fromCol]) && toRow == 7) {
+            board[toRow][toCol] = BLACK_KING;
+        } else {
+            board[toRow][toCol] = board[fromRow][fromCol];
+        }
+        board[fromRow][fromCol] = EMPTY;
+        CheckersMove move = new CheckersMove(fromRow, fromCol, toRow, toCol);
+        if (move.isJump()) {
+            removeJumpedPiece(fromRow, fromCol, toRow, toCol);
+        }
     }
 
     void removeJumpedPiece(int fromRow, int fromCol, int toRow, int toCol) {
