@@ -22,8 +22,6 @@ public class CheckersMove {
     ArrayList<Integer> cols = new ArrayList<Integer>();
     
     CheckersMove(int r1, int c1, int r2, int c2) {
-        System.out.println("        From: (" + r1 + "," + c1 + ")");
-        System.out.println("        To:   (" + r2 + "," + c2 + ")");
         // Constructor, a single move from
         //(r1, c1) to (r2, c2)
         

@@ -165,7 +165,6 @@ public class CheckersData {
         legalMoves = getLegalMovesHelper(player, boardContainsJumps(player));
         CheckersMove[] output = new CheckersMove[legalMoves.size()];
         for (int i = 0; i < legalMoves.size(); i++) {
-            System.out.println(legalMoves.get(i).toString());
             output[i] = legalMoves.get(i);
         }
         return output;
@@ -278,9 +277,6 @@ public class CheckersData {
 
     ArrayList<CheckersMove> getHelperLegalJumpsFrom(int player, int row, int col) {
         ArrayList<CheckersMove> legalJumps = new ArrayList<CheckersMove>();
-        if (board[row][col] == EMPTY) {
-            System.out.println("hihihiihiihii");
-        }
         switch (player) {
             case RED:
                 if (checkIf(row, col, RED_KING)) {

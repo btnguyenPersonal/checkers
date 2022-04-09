@@ -14,8 +14,8 @@ ANSI_RESET	edu/iastate/cs472/proj2/CheckersData.java	/^    public static final S
 ANSI_YELLOW	edu/iastate/cs472/proj2/CheckersData.java	/^    public static final String ANSI_YELLOW = "\\u001B[33m";$/;"	f	class:CheckersData
 AdversarialSearch	edu/iastate/cs472/proj2/AdversarialSearch.java	/^public abstract class AdversarialSearch {$/;"	c
 AlphaBetaSearch	edu/iastate/cs472/proj2/AlphaBetaSearch.java	/^public class AlphaBetaSearch extends AdversarialSearch {$/;"	c
-BLACK	edu/iastate/cs472/proj2/CheckersData.java	/^        BLACK = 3,$/;"	f	class:CheckersData
-BLACK_KING	edu/iastate/cs472/proj2/CheckersData.java	/^        BLACK_KING = 4;$/;"	f	class:CheckersData
+BLACK	edu/iastate/cs472/proj2/CheckersData.java	/^            BLACK = 3,$/;"	f	class:CheckersData
+BLACK_KING	edu/iastate/cs472/proj2/CheckersData.java	/^            BLACK_KING = 4;$/;"	f	class:CheckersData
 Board	edu/iastate/cs472/proj2/Checkers.java	/^        Board() {$/;"	m	class:Checkers.Board
 Board	edu/iastate/cs472/proj2/Checkers.java	/^    private class Board extends JPanel implements ActionListener, MouseListener {$/;"	c	class:Checkers
 CSNode	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode(){}$/;"	m	class:CSNode
@@ -30,12 +30,12 @@ CheckersData	edu/iastate/cs472/proj2/CheckersData.java	/^public class CheckersDa
 CheckersMove	edu/iastate/cs472/proj2/CheckersMove.java	/^    CheckersMove() {$/;"	m	class:CheckersMove
 CheckersMove	edu/iastate/cs472/proj2/CheckersMove.java	/^    CheckersMove(int r1, int c1, int r2, int c2) {$/;"	m	class:CheckersMove
 CheckersMove	edu/iastate/cs472/proj2/CheckersMove.java	/^public class CheckersMove {$/;"	c
-EMPTY	edu/iastate/cs472/proj2/CheckersData.java	/^        EMPTY = 0,$/;"	f	class:CheckersData
+EMPTY	edu/iastate/cs472/proj2/CheckersData.java	/^    static final int EMPTY = 0,$/;"	f	class:CheckersData
 MonteCarloTreeSearch	edu/iastate/cs472/proj2/MonteCarloTreeSearch.java	/^public class MonteCarloTreeSearch extends AdversarialSearch {$/;"	c
 PreBoard	edu/iastate/cs472/proj2/Checkers.java	/^    	PreBoard()$/;"	m	class:Checkers.PreBoard
 PreBoard	edu/iastate/cs472/proj2/Checkers.java	/^    public static class PreBoard extends JPanel{$/;"	c	class:Checkers
-RED	edu/iastate/cs472/proj2/CheckersData.java	/^        RED = 1,$/;"	f	class:CheckersData
-RED_KING	edu/iastate/cs472/proj2/CheckersData.java	/^        RED_KING = 2,$/;"	f	class:CheckersData
+RED	edu/iastate/cs472/proj2/CheckersData.java	/^            RED = 1,$/;"	f	class:CheckersData
+RED_KING	edu/iastate/cs472/proj2/CheckersData.java	/^            RED_KING = 2,$/;"	f	class:CheckersData
 actionPerformed	edu/iastate/cs472/proj2/Checkers.java	/^        public void actionPerformed(ActionEvent evt) {$/;"	m	class:Checkers.Board
 addMove	edu/iastate/cs472/proj2/CheckersMove.java	/^    void addMove(int r, int c){$/;"	m	class:CheckersMove
 agentBoard	edu/iastate/cs472/proj2/Checkers.java	/^        CheckersData agentBoard;$/;"	f	class:Checkers.Board
@@ -43,7 +43,7 @@ aiKey	edu/iastate/cs472/proj2/Checkers.java	/^	static int aiKey = 0;$/;"	f	class
 board	edu/iastate/cs472/proj2/AdversarialSearch.java	/^    protected CheckersData board;$/;"	f	class:AdversarialSearch
 board	edu/iastate/cs472/proj2/Checkers.java	/^        CheckersData board;  \/\/ The data for the checkers board is kept here.$/;"	f	class:Checkers.Board
 board	edu/iastate/cs472/proj2/CheckersData.java	/^    int[][] board; \/\/ board[r][c] is the contents of row r, column c.$/;"	f	class:CheckersData
-boardContainsJump	edu/iastate/cs472/proj2/CheckersData.java	/^    boolean boardContainsJump(int player) {$/;"	m	class:CheckersData
+boardContainsJumps	edu/iastate/cs472/proj2/CheckersData.java	/^    boolean boardContainsJumps(int player) {$/;"	m	class:CheckersData
 checkIf	edu/iastate/cs472/proj2/CheckersData.java	/^    boolean checkIf(int row, int col, int color) {$/;"	m	class:CheckersData
 chengeValue	edu/iastate/cs472/proj2/Checkers.java	/^    static boolean chengeValue = false;$/;"	f	class:Checkers
 clone	edu/iastate/cs472/proj2/CheckersMove.java	/^    public CheckersMove clone() {$/;"	m	class:CheckersMove
@@ -81,6 +81,7 @@ getSibling	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode<E> getSibling()
 isJump	edu/iastate/cs472/proj2/CheckersMove.java	/^    boolean isJump() {$/;"	m	class:CheckersMove
 isKinging	edu/iastate/cs472/proj2/CheckersData.java	/^    void isKinging(int fromRow, int fromCol, int toRow, int toCol) {$/;"	m	class:CheckersData
 isLeaf	edu/iastate/cs472/proj2/CSNode.java	/^  public boolean isLeaf()$/;"	m	class:CSNode
+isType	edu/iastate/cs472/proj2/CheckersData.java	/^    boolean isType(int player, int boardSquare) {$/;"	m	class:CheckersData
 legalMoves	edu/iastate/cs472/proj2/AdversarialSearch.java	/^    protected CheckersMove[] legalMoves() {$/;"	m	class:AdversarialSearch
 legalMoves	edu/iastate/cs472/proj2/Checkers.java	/^        CheckersMove[] legalMoves;  \/\/ An array containing the legal moves for the$/;"	f	class:Checkers.Board
 main	edu/iastate/cs472/proj2/Checkers.java	/^	public static void main(String[] args) {$/;"	m	class:Checkers
