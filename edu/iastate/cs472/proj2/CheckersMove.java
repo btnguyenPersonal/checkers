@@ -37,6 +37,18 @@ public class CheckersMove {
     CheckersMove() {
         // Constructor, create an empty move
     }
+
+    CheckersMove(int r1, int c1) {
+        rows.add(r1);
+        cols.add(c1);
+    }
+
+    CheckersMove(CheckersMove move, int r2, int c2) {
+        for (int i = 0; i < move.size(); i++) {
+            addMove(move.rows.get(i), move.cols.get(i));
+        }
+        addMove(r2, c2);
+    }
     
     boolean isJump() {
         // Test whether this move is a jump.  It is assumed that
@@ -44,7 +56,6 @@ public class CheckersMove {
         // rows.  (In a regular move, it only moves one row.)
         return (rows.get(0) - rows.get(1) == 2 || rows.get(0) - rows.get(1) == -2);
     }
-    
     
     void addMove(int r, int c){
         // add another move (continuous jump), which goes from
@@ -63,6 +74,10 @@ public class CheckersMove {
         
         return move;
         
+    }
+
+    public int size() {
+        return rows.size();
     }
 
     public String getCoors() {
