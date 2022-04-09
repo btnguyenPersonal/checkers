@@ -65,4 +65,12 @@ public class CheckersMove {
         
     }
 
+    public String getCoors() {
+        String output = "";
+        output += "(" + rows.get(0) + ", " + cols.get(0) + ")";
+        output += "\n";
+        output += "(" + rows.get(1) + ", " + cols.get(1) + ")";
+        return output;
+    }
+
 }  // end class CheckersMove.

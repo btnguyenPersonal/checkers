@@ -162,7 +162,12 @@ public class CheckersData {
      */
     CheckersMove[] getLegalMoves(int player) {
         ArrayList<CheckersMove> legalMoves = new ArrayList<CheckersMove>();
+        System.out.println(boardContainsJumps(player));
+        System.out.println(getNumJumps(player));
         legalMoves = getLegalMovesHelper(player, boardContainsJumps(player));
+        if (legalMoves.size() == 0) {
+            return null;
+        }
         CheckersMove[] output = new CheckersMove[legalMoves.size()];
         for (int i = 0; i < legalMoves.size(); i++) {
             output[i] = legalMoves.get(i);
@@ -249,30 +254,33 @@ public class CheckersData {
     }
 
     boolean boardContainsJumps(int player) {
-        if (player == RED) {
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-                    if (board[row][col] == BLACK || board[row][col] == BLACK_KING) {
-                        CheckersMove[] jumps = getLegalJumpsFrom(player, row, col);
-                        if (jumps.length > 0) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        } else if (player == BLACK) {
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-                    if (board[row][col] == RED || board[row][col] == RED_KING) {
-                        CheckersMove[] jumps = getLegalJumpsFrom(player, row, col);
-                        if (jumps.length > 0) {
-                            return true;
-                        }
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (board[row][col] == BLACK || board[row][col] == BLACK_KING) {
+                    ArrayList<CheckersMove> jumps = getHelperLegalJumpsFrom(player, row, col);
+                    if (jumps.size() > 0) {
+                        return true;
                     }
                 }
             }
         }
         return false;
+    }
+
+    int getNumJumps(int player) {
+        int i = 0;
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (board[row][col] == BLACK || board[row][col] == BLACK_KING) {
+                    ArrayList<CheckersMove> jumps = getHelperLegalJumpsFrom(player, row, col);
+                    if (jumps.size() > 0) {
+                        System.out.println((jumps.get(0)).getCoors());
+                        i++;
+                    }
+                }
+            }
+        }
+        return i;
     }
 
     ArrayList<CheckersMove> getHelperLegalJumpsFrom(int player, int row, int col) {
@@ -281,26 +289,30 @@ public class CheckersData {
             case RED:
                 if (checkIf(row, col, RED_KING)) {
                     if (
-                        (checkIf(row + 1, col + 1, BLACK) || checkIf(row + 1, col + 1, BLACK_KING))
+                        (checkIf(row, col, RED) || checkIf(row, col, RED_KING))
+                        && (checkIf(row + 1, col + 1, BLACK) || checkIf(row + 1, col + 1, BLACK_KING))
                         && checkIf(row + 2, col + 2, EMPTY)
                         ) {
                         legalJumps.add(new CheckersMove(row, col, row + 2, col + 2));
                     }
                     if (
-                        (checkIf(row + 1, col - 1, BLACK) || checkIf(row + 1, col - 1, BLACK_KING))
+                        (checkIf(row, col, RED) || checkIf(row, col, RED_KING))
+                        && (checkIf(row + 1, col - 1, BLACK) || checkIf(row + 1, col - 1, BLACK_KING))
                         && checkIf(row + 2, col - 2, EMPTY)
                         ) {
                         legalJumps.add(new CheckersMove(row, col, row + 2, col - 2));
                     }
                 }
                 if (
-                    (checkIf(row - 1, col + 1, BLACK) || checkIf(row - 1, col + 1, BLACK_KING))
+                    (checkIf(row, col, RED) || checkIf(row, col, RED_KING))
+                    && (checkIf(row - 1, col + 1, BLACK) || checkIf(row - 1, col + 1, BLACK_KING))
                     && checkIf(row - 2, col + 2, EMPTY)
                     ) {
                     legalJumps.add(new CheckersMove(row, col, row - 2, col + 2));
                 }
                 if (
-                    (checkIf(row - 1, col - 1, BLACK) || checkIf(row - 1, col - 1, BLACK_KING))
+                    (checkIf(row, col, RED) || checkIf(row, col, RED_KING))
+                    && (checkIf(row - 1, col - 1, BLACK) || checkIf(row - 1, col - 1, BLACK_KING))
                     && checkIf(row - 2, col - 2, EMPTY)
                     ) {
                     legalJumps.add(new CheckersMove(row, col, row - 2, col - 2));
@@ -309,26 +321,30 @@ public class CheckersData {
             case BLACK:
                 if (checkIf(row, col, BLACK_KING)) {
                     if (
-                    (checkIf(row - 1, col + 1, RED) || checkIf(row - 1, col + 1, RED_KING))
+                    (checkIf(row, col, BLACK) || checkIf(row, col, BLACK_KING))
+                    && (checkIf(row - 1, col + 1, RED) || checkIf(row - 1, col + 1, RED_KING))
                     && checkIf(row - 2, col + 2, EMPTY)
                     ) {
                         legalJumps.add(new CheckersMove(row, col, row - 2, col + 2));
                     }
                     if (
-                    (checkIf(row - 1, col - 1, RED) || checkIf(row - 1, col - 1, RED_KING))
+                    (checkIf(row, col, BLACK) || checkIf(row, col, BLACK_KING))
+                    && (checkIf(row - 1, col - 1, RED) || checkIf(row - 1, col - 1, RED_KING))
                     && checkIf(row - 2, col - 2, EMPTY)
                     ) {
                         legalJumps.add(new CheckersMove(row, col, row - 2, col - 2));
                     }
                 }
                 if (
-                    (checkIf(row + 1, col + 1, RED) || checkIf(row + 1, col + 1, RED_KING))
+                    (checkIf(row, col, BLACK) || checkIf(row, col, BLACK_KING))
+                    && (checkIf(row + 1, col + 1, RED) || checkIf(row + 1, col + 1, RED_KING))
                     && checkIf(row + 2, col + 2, EMPTY)
                     ) {
                     legalJumps.add(new CheckersMove(row, col, row + 2, col + 2));
                 }
                 if (
-                    (checkIf(row + 1, col - 1, RED) || checkIf(row + 1, col - 1, RED_KING))
+                    (checkIf(row, col, BLACK) || checkIf(row, col, BLACK_KING))
+                    && (checkIf(row + 1, col - 1, RED) || checkIf(row + 1, col - 1, RED_KING))
                     && checkIf(row + 2, col - 2, EMPTY)
                     ) {
                     legalJumps.add(new CheckersMove(row, col, row + 2, col - 2));
