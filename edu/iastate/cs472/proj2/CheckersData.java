@@ -186,7 +186,7 @@ public class CheckersData {
                     if (hasJumps) {
                         moves = getHelperLegalJumpsFrom(player, row, col);
                     } else {
-                        moves = getLegalMovesSingle(board[row][col], row, col);
+                        moves = getLegalMovesSingle(player, row, col);
                     }
                 }
                 for (int i = 0; i < moves.size(); i++) {
@@ -211,6 +211,7 @@ public class CheckersData {
         switch (player) {
             case RED:
                 if (checkIf(row, col, RED_KING)) {
+                    System.out.println("hello");
                     if (checkIf(row + 1, col + 1, EMPTY)) {
                         legalMoves.add(new CheckersMove(row, col, row + 1, col + 1));
                     }
