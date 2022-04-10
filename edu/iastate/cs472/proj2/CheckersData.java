@@ -436,18 +436,13 @@ public class CheckersData {
         }
         ArrayList<CheckersMove> doubleJumps = new ArrayList<CheckersMove>();
         ArrayList<CheckersMove> temp = new ArrayList<CheckersMove>();
-        System.out.println(legalJumps.size());
         for(CheckersMove move : legalJumps) {
-            System.out.println("wtff");
-            System.out.println(move.getLastRow());
-            System.out.println(move.getLastCol());
             temp = getDoubleJumpsFrom(move, isKing(move), player, move.getLastRow(), move.getLastCol());
             for(int i = 0; i < temp.size(); i++) {
                 doubleJumps.add(temp.get(i));
             }
         }
         for (int i = 0; i < doubleJumps.size(); i++) {
-            System.out.println(doubleJumps.get(i).getCoors());
             legalJumps.add(doubleJumps.get(i));
         }
         return legalJumps;

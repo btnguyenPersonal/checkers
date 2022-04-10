@@ -43,7 +43,7 @@ public class CheckersMove {
     }
 
     int getLastRow() {
-        return cols.get(cols.size() - 1);
+        return rows.get(rows.size() - 1);
     }
     
     boolean isJump() {
