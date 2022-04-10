@@ -71,15 +71,20 @@ firstChild	edu/iastate/cs472/proj2/CSNode.java	/^  protected CSNode<E> firstChil
 gameInProgress	edu/iastate/cs472/proj2/Checkers.java	/^        boolean gameInProgress; \/\/ Is a game currently in progress?$/;"	f	class:Checkers.Board
 gameOver	edu/iastate/cs472/proj2/Checkers.java	/^        void gameOver(String str) {$/;"	m	class:Checkers.Board
 getChild	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode<E> getChild()$/;"	m	class:CSNode
+getCoors	edu/iastate/cs472/proj2/CheckersMove.java	/^    public String getCoors() {$/;"	m	class:CheckersMove
 getData	edu/iastate/cs472/proj2/CSNode.java	/^  public E getData()$/;"	m	class:CSNode
+getDoubleJumpsFrom	edu/iastate/cs472/proj2/CheckersData.java	/^    ArrayList<CheckersMove> getDoubleJumpsFrom(CheckersMove previousMove, boolean isKing, int pl/;"	m	class:CheckersData
 getHelperLegalJumpsFrom	edu/iastate/cs472/proj2/CheckersData.java	/^    ArrayList<CheckersMove> getHelperLegalJumpsFrom(int player, int row, int col) {$/;"	m	class:CheckersData
+getLastCol	edu/iastate/cs472/proj2/CheckersMove.java	/^    int getLastCol() {$/;"	m	class:CheckersMove
+getLastRow	edu/iastate/cs472/proj2/CheckersMove.java	/^    int getLastRow() {$/;"	m	class:CheckersMove
 getLegalJumpsFrom	edu/iastate/cs472/proj2/CheckersData.java	/^    CheckersMove[] getLegalJumpsFrom(int player, int row, int col) {$/;"	m	class:CheckersData
 getLegalMoves	edu/iastate/cs472/proj2/CheckersData.java	/^    CheckersMove[] getLegalMoves(int player) {$/;"	m	class:CheckersData
 getLegalMovesHelper	edu/iastate/cs472/proj2/CheckersData.java	/^    ArrayList<CheckersMove> getLegalMovesHelper(int player, boolean hasJumps) {$/;"	m	class:CheckersData
 getLegalMovesSingle	edu/iastate/cs472/proj2/CheckersData.java	/^    ArrayList<CheckersMove> getLegalMovesSingle(int player, int row, int col) {$/;"	m	class:CheckersData
+getNumJumps	edu/iastate/cs472/proj2/CheckersData.java	/^    int getNumJumps(int player) {$/;"	m	class:CheckersData
 getSibling	edu/iastate/cs472/proj2/CSNode.java	/^  public CSNode<E> getSibling()$/;"	m	class:CSNode
 isJump	edu/iastate/cs472/proj2/CheckersMove.java	/^    boolean isJump() {$/;"	m	class:CheckersMove
-isKinging	edu/iastate/cs472/proj2/CheckersData.java	/^    void isKinging(int fromRow, int fromCol, int toRow, int toCol) {$/;"	m	class:CheckersData
+isKing	edu/iastate/cs472/proj2/CheckersData.java	/^    boolean isKing(CheckersMove m) {$/;"	m	class:CheckersData
 isLeaf	edu/iastate/cs472/proj2/CSNode.java	/^  public boolean isLeaf()$/;"	m	class:CSNode
 isType	edu/iastate/cs472/proj2/CheckersData.java	/^    boolean isType(int player, int boardSquare) {$/;"	m	class:CheckersData
 legalMoves	edu/iastate/cs472/proj2/AdversarialSearch.java	/^    protected CheckersMove[] legalMoves() {$/;"	m	class:AdversarialSearch

@@ -37,6 +37,14 @@ public class CheckersMove {
     CheckersMove() {
         // Constructor, create an empty move
     }
+
+    int getLastCol() {
+        return cols.get(cols.size() - 1);
+    }
+
+    int getLastRow() {
+        return cols.get(cols.size() - 1);
+    }
     
     boolean isJump() {
         // Test whether this move is a jump.  It is assumed that
@@ -65,11 +73,18 @@ public class CheckersMove {
         
     }
 
+    //get a copy of this move
+    @Override
+    public String toString() {
+        return getCoors();
+    }
+
     public String getCoors() {
-        String output = "";
-        output += "(" + rows.get(0) + ", " + cols.get(0) + ")";
-        output += "\n";
-        output += "(" + rows.get(1) + ", " + cols.get(1) + ")";
+        String output = "\nMove:\n";
+        for (int i = 0; i < rows.size(); i++) {
+            output += "    (" + rows.get(i) + ", " + cols.get(i) + ")";
+            output += "\n";
+        }
         return output;
     }
 

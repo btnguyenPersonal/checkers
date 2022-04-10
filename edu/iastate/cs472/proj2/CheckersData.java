@@ -164,8 +164,6 @@ public class CheckersData {
      */
     CheckersMove[] getLegalMoves(int player) {
         ArrayList<CheckersMove> legalMoves = new ArrayList<CheckersMove>();
-        System.out.println(boardContainsJumps(player));
-        System.out.println(getNumJumps(player));
         legalMoves = getLegalMovesHelper(player, boardContainsJumps(player));
         if (legalMoves.size() == 0) {
             return null;
@@ -211,7 +209,6 @@ public class CheckersData {
         switch (player) {
             case RED:
                 if (checkIf(row, col, RED_KING)) {
-                    System.out.println("hello");
                     if (checkIf(row + 1, col + 1, EMPTY)) {
                         legalMoves.add(new CheckersMove(row, col, row + 1, col + 1));
                     }
@@ -277,7 +274,6 @@ public class CheckersData {
                 if (board[row][col] == BLACK || board[row][col] == BLACK_KING) {
                     ArrayList<CheckersMove> jumps = getHelperLegalJumpsFrom(player, row, col);
                     if (jumps.size() > 0) {
-                        System.out.println((jumps.get(0)).getCoors());
                         i++;
                     }
                 }
@@ -285,6 +281,88 @@ public class CheckersData {
         }
         return i;
     }
+
+    ArrayList<CheckersMove> getDoubleJumpsFrom(CheckersMove previousMove, boolean isKing, int player, int row, int col) {
+        ArrayList<CheckersMove> doubleJumps = new ArrayList<CheckersMove>();
+        switch (player) {
+            case RED:
+                if (isKing) {
+                    if (
+                        (checkIf(row + 1, col + 1, BLACK) || checkIf(row + 1, col + 1, BLACK_KING))
+                        && checkIf(row + 2, col + 2, EMPTY)
+                        ) {
+                        CheckersMove newMove = previousMove.clone();
+                        newMove.addMove(row + 2, col + 2);
+                        doubleJumps.add(newMove);
+                    }
+                    if (
+                        (checkIf(row + 1, col - 1, BLACK) || checkIf(row + 1, col - 1, BLACK_KING))
+                        && checkIf(row + 2, col - 2, EMPTY)
+                        ) {
+                        CheckersMove newMove = previousMove.clone();
+                        newMove.addMove(row + 2, col - 2);
+                        doubleJumps.add(newMove);
+                    }
+                }
+                if (
+                    (checkIf(row - 1, col + 1, BLACK) || checkIf(row - 1, col + 1, BLACK_KING))
+                    && checkIf(row - 2, col + 2, EMPTY)
+                    ) {
+                    CheckersMove newMove = previousMove.clone();
+                    newMove.addMove(row - 2, col + 2);
+                    doubleJumps.add(newMove);
+                }
+                if (
+                    (checkIf(row - 1, col - 1, BLACK) || checkIf(row - 1, col - 1, BLACK_KING))
+                    && checkIf(row - 2, col - 2, EMPTY)
+                    ) {
+                    CheckersMove newMove = previousMove.clone();
+                    newMove.addMove(row - 2, col - 2);
+                    doubleJumps.add(newMove);
+                }
+                break;
+            case BLACK:
+                if (isKing) {
+                    if (
+                    (checkIf(row - 1, col + 1, RED) || checkIf(row - 1, col + 1, RED_KING))
+                    && checkIf(row - 2, col + 2, EMPTY)
+                    ) {
+                        CheckersMove newMove = previousMove.clone();
+                        newMove.addMove(row - 2, col + 2);
+                        doubleJumps.add(newMove);
+                    }
+                    if (
+                    (checkIf(row - 1, col - 1, RED) || checkIf(row - 1, col - 1, RED_KING))
+                    && checkIf(row - 2, col - 2, EMPTY)
+                    ) {
+                        CheckersMove newMove = previousMove.clone();
+                        newMove.addMove(row - 2, col - 2);
+                        doubleJumps.add(newMove);
+                    }
+                }
+                if (
+                    (checkIf(row + 1, col + 1, RED) || checkIf(row + 1, col + 1, RED_KING))
+                    && checkIf(row + 2, col + 2, EMPTY)
+                    ) {
+                    CheckersMove newMove = previousMove.clone();
+                    newMove.addMove(row + 2, col + 2);
+                    doubleJumps.add(newMove);
+                }
+                if (
+                    (checkIf(row + 1, col - 1, RED) || checkIf(row + 1, col - 1, RED_KING))
+                    && checkIf(row + 2, col - 2, EMPTY)
+                    ) {
+                    CheckersMove newMove = previousMove.clone();
+                    newMove.addMove(row + 2, col - 2);
+                    doubleJumps.add(newMove);
+                }
+                break;
+            default:
+                break;
+        }
+        return doubleJumps;
+    }
+
 
     ArrayList<CheckersMove> getHelperLegalJumpsFrom(int player, int row, int col) {
         ArrayList<CheckersMove> legalJumps = new ArrayList<CheckersMove>();
@@ -356,8 +434,28 @@ public class CheckersData {
             default:
                 break;
         }
-
+        ArrayList<CheckersMove> doubleJumps = new ArrayList<CheckersMove>();
+        ArrayList<CheckersMove> temp = new ArrayList<CheckersMove>();
+        System.out.println(legalJumps.size());
+        for(CheckersMove move : legalJumps) {
+            System.out.println("wtff");
+            System.out.println(move.getLastRow());
+            System.out.println(move.getLastCol());
+            temp = getDoubleJumpsFrom(move, isKing(move), player, move.getLastRow(), move.getLastCol());
+            for(int i = 0; i < temp.size(); i++) {
+                doubleJumps.add(temp.get(i));
+            }
+        }
+        for (int i = 0; i < doubleJumps.size(); i++) {
+            System.out.println(doubleJumps.get(i).getCoors());
+            legalJumps.add(doubleJumps.get(i));
+        }
         return legalJumps;
+    }
+
+    boolean isKing(CheckersMove m) {
+        return board[m.rows.get(0)][m.cols.get(0)] == RED_KING
+            || board[m.rows.get(0)][m.cols.get(0)] == BLACK_KING;
     }
 
     /**
