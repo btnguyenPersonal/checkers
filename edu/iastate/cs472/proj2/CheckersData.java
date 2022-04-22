@@ -34,9 +34,22 @@ public class CheckersData {
         setUpGame();
     }
 
+    CheckersData(int[][] state) {
+        board = new int[8][8];
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                this.board[i][j] = state[i][j];
+            }
+        }
+    }
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
+
+    int[][] getBoard() {
+        return board;
+    }
 
     @Override
     public String toString() {
@@ -100,7 +113,7 @@ public class CheckersData {
 
 
 
-    double getEvaluation() {
+    public double getEvaluation() {
         double black = 0;
         double red = 0;
         for (int row = 0; row < 8; row++) {
