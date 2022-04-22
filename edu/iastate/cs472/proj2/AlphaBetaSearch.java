@@ -43,7 +43,6 @@ public class AlphaBetaSearch extends AdversarialSearch {
     CheckersMove AlphaBetaSearch(CheckersMove[] legalMoves) {
         int depth = 4;
         double min = MinValue(board, CheckersData.BLACK, depth);
-        System.out.println("evaluation: " + min);
         for (int i = 0; i < legalMoves.length; i++) {
             if (eval(legalMoves[i], board) == min) {
                 return legalMoves[i];
@@ -62,7 +61,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
         for (int i = 0; i < moves.length; i++) {
             double value;
             if (depth == 0) {
-                value = eval(moves[0], state);
+                value = eval(moves[i], state);
             } else {
                 CheckersData temp_state = new CheckersData(state.getBoard());
                 temp_state.makeMove(moves[i]);
@@ -85,7 +84,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
         for (int i = 0; i < moves.length; i++) {
             double value;
             if (depth == 0) {
-                value = eval(moves[0], state);
+                value = eval(moves[i], state);
             } else {
                 CheckersData temp_state = new CheckersData(state.getBoard());
                 temp_state.makeMove(moves[i]);
@@ -101,7 +100,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
     double eval(CheckersMove move, CheckersData state) {
         CheckersData temp_state = new CheckersData(state.getBoard());
         temp_state.makeMove(move);
-        System.out.println("eval: " + temp_state.getEvaluation());
+        //System.out.println("eval: " + temp_state.getEvaluation());
         return temp_state.getEvaluation();
     }
 
