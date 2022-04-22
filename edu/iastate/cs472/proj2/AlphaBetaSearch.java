@@ -27,27 +27,23 @@ public class AlphaBetaSearch extends AdversarialSearch {
      * @param legalMoves All the legal moves for the agent at current step.
      */
     public CheckersMove makeMove(CheckersMove[] legalMoves) {
-        // The checker board state can be obtained from this.board,
-        // which is a int 2D array. The numbers in the `board` are
-        // defined as
-        // 0 - empty square,
-        // 1 - red man
-        // 2 - red king
-        // 3 - black man
-        // 4 - black king
         System.out.println(board);
         System.out.println();
         return AlphaBetaSearch(legalMoves);
     }
 
     int swapPlayer(int player) {
-        return player == CheckersData.RED ? CheckersData.BLACK : CheckersData.RED;
+        if (player == CheckersData.RED) {
+            return CheckersData.BLACK;
+        } else {
+            return CheckersData.RED;
+        }
     }
 
     CheckersMove AlphaBetaSearch(CheckersMove[] legalMoves) {
-        int depth = 3;
+        int depth = 4;
         double min = MinValue(board, CheckersData.BLACK, depth);
-        System.out.println("min: " + min);
+        System.out.println("evaluation: " + min);
         for (int i = 0; i < legalMoves.length; i++) {
             if (eval(legalMoves[i], board) == min) {
                 return legalMoves[i];
@@ -69,6 +65,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
                 value = eval(moves[0], state);
             } else {
                 CheckersData temp_state = new CheckersData(state.getBoard());
+                temp_state.makeMove(moves[i]);
                 value = MinValue(temp_state, swapPlayer(player), depth - 1);
             }
             if (max < value) {
@@ -91,6 +88,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
                 value = eval(moves[0], state);
             } else {
                 CheckersData temp_state = new CheckersData(state.getBoard());
+                temp_state.makeMove(moves[i]);
                 value = MaxValue(temp_state, swapPlayer(player), depth - 1);
             }
             if (min > value) {
@@ -102,10 +100,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
 
     double eval(CheckersMove move, CheckersData state) {
         CheckersData temp_state = new CheckersData(state.getBoard());
-        System.out.println("\n BEFORE: \n" + temp_state);
         temp_state.makeMove(move);
-        System.out.println("\n AFTER: \n" + temp_state);
-        System.out.println(temp_state.getEvaluation());
         return temp_state.getEvaluation();
     }
 
