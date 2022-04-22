@@ -101,6 +101,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
     double eval(CheckersMove move, CheckersData state) {
         CheckersData temp_state = new CheckersData(state.getBoard());
         temp_state.makeMove(move);
+        System.out.println("eval: " + temp_state.getEvaluation());
         return temp_state.getEvaluation();
     }
 
