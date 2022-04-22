@@ -45,7 +45,29 @@ public class AlphaBetaSearch extends AdversarialSearch {
         return legalMoves[0];
     }
     
+
     // TODO
     // Implement your helper methods here.
+    /*
+        function ALPHA-BETA-SEARCH(state) returns an action
+            MAX-VALUE state, 
+            return the action in ACTIONS(state) with value 
+
+        function Max-Value(state) returns a utility value
+            if Terminal-Test(state) returns a utility value
+        for each inActions(state) do
+            Max(Min-Value(result()))
+            if then return
+            Max
+        return
+
+        function Min-Value(state) returns a utility value
+            if Terminal-Test(state) returns a utility value
+        for each inActions(state) do
+            Min(Max-Value(result()))
+            if then return // prune
+            Min
+        return
+    */
 
 }
