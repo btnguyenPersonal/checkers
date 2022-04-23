@@ -51,7 +51,9 @@ public class CheckersMove {
         // the move is legal.  In a jump, the piece moves two
         // rows.  (In a regular move, it only moves one row.)
         return (rows.get(0) - rows.get(1) == 2 || rows.get(0) - rows.get(1) == -2);
-    }
+    }    // TODO
+    // Implement your helper methods here.
+
     
     
     void addMove(int r, int c){

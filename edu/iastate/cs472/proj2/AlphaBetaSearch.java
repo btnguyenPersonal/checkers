@@ -41,10 +41,11 @@ public class AlphaBetaSearch extends AdversarialSearch {
     }
 
     CheckersMove AlphaBetaSearch(CheckersMove[] legalMoves) {
-        int depth = 4;
+        int depth = 8;
         double min = MinValue(board, CheckersData.BLACK, depth);
         for (int i = 0; i < legalMoves.length; i++) {
             if (eval(legalMoves[i], board) == min) {
+                System.out.println("i: " + i);
                 return legalMoves[i];
             }
         }
@@ -100,12 +101,9 @@ public class AlphaBetaSearch extends AdversarialSearch {
     double eval(CheckersMove move, CheckersData state) {
         CheckersData temp_state = new CheckersData(state.getBoard());
         temp_state.makeMove(move);
-        //System.out.println("eval: " + temp_state.getEvaluation());
         return temp_state.getEvaluation();
     }
 
-    // TODO
-    // Implement your helper methods here.
     /*
         function ALPHA-BETA-SEARCH(state) returns an action
             MAX-VALUE state,

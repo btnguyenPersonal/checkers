@@ -212,9 +212,15 @@ public class CheckersData {
         if (legalMoves.size() == 0) {
             return null;
         }
-        CheckersMove[] output = new CheckersMove[legalMoves.size()];
-        for (int i = 0; i < legalMoves.size(); i++) {
-            output[i] = legalMoves.get(i);
+        ArrayList<CheckersMove> simpleLegalMoves = new ArrayList<CheckersMove>();
+        for (CheckersMove move : legalMoves) {
+            if (!(simpleLegalMoves.contains(move))) {
+                simpleLegalMoves.add(move);
+            }
+        }
+        CheckersMove[] output = new CheckersMove[simpleLegalMoves.size()];
+        for (int i = 0; i < simpleLegalMoves.size(); i++) {
+            output[i] = simpleLegalMoves.get(i);
         }
         return output;
     }
