@@ -207,7 +207,6 @@ public class CheckersData {
     CheckersMove[] getLegalMoves(int player) {
         ArrayList<CheckersMove> legalMoves = new ArrayList<CheckersMove>();
         legalMoves = getLegalMovesHelper(player, boardContainsJumps(player));
-        System.out.println(legalMoves.size());
         if (legalMoves.size() == 0) {
             return null;
         }
