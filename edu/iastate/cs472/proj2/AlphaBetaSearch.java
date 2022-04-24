@@ -42,6 +42,8 @@ public class AlphaBetaSearch extends AdversarialSearch {
 
     CheckersMove AlphaBetaSearch(CheckersMove[] legalMoves) {
         int depth = 8;
+        // im so dumb
+        // calc for every thing
         double min = MinValue(board, CheckersData.BLACK, depth);
         for (int i = 0; i < legalMoves.length; i++) {
             if (eval(legalMoves[i], board) == min) {

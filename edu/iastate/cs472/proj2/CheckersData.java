@@ -111,8 +111,6 @@ public class CheckersData {
         return board[row][col];
     }
 
-
-
     public double getEvaluation() {
         double black = 0;
         double red = 0;
@@ -209,18 +207,13 @@ public class CheckersData {
     CheckersMove[] getLegalMoves(int player) {
         ArrayList<CheckersMove> legalMoves = new ArrayList<CheckersMove>();
         legalMoves = getLegalMovesHelper(player, boardContainsJumps(player));
+        System.out.println(legalMoves.size());
         if (legalMoves.size() == 0) {
             return null;
         }
-        ArrayList<CheckersMove> simpleLegalMoves = new ArrayList<CheckersMove>();
-        for (CheckersMove move : legalMoves) {
-            if (!(simpleLegalMoves.contains(move))) {
-                simpleLegalMoves.add(move);
-            }
-        }
-        CheckersMove[] output = new CheckersMove[simpleLegalMoves.size()];
-        for (int i = 0; i < simpleLegalMoves.size(); i++) {
-            output[i] = simpleLegalMoves.get(i);
+        CheckersMove[] output = new CheckersMove[legalMoves.size()];
+        for (int i = 0; i < legalMoves.size(); i++) {
+            output[i] = legalMoves.get(i);
         }
         return output;
     }
@@ -236,11 +229,12 @@ public class CheckersData {
                     } else {
                         moves = getLegalMovesSingle(player, row, col);
                     }
-                }
-                for (int i = 0; i < moves.size(); i++) {
-                    output.add(moves.get(i));
+                    for (int i = 0; i < moves.size(); i++) {
+                        output.add(moves.get(i));
+                    }
                 }
             }
+
         }
         return output;
     }
