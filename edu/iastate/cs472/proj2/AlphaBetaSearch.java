@@ -41,16 +41,14 @@ public class AlphaBetaSearch extends AdversarialSearch {
     }
 
     CheckersMove AlphaBetaSearch(CheckersMove[] legalMoves) {
-        int depth = 3;
-        // im so dumb
-        // calc for every thing
+        int depth = 5;
         double min = 9999;
         double value = 0;
         int lowestIndex = 0;
         for (int i = 0; i < legalMoves.length; i++) {
             CheckersData temp_state = new CheckersData(board.getBoard());
             temp_state.makeMove(legalMoves[i]);
-            value = MaxValue(temp_state, CheckersData.BLACK, depth);
+            value = MaxValue(temp_state, CheckersData.RED, depth - 1);
             System.out.println(i + ": " + value);
             if (min > value) {
                 min = value;
