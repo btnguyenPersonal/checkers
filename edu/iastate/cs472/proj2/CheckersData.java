@@ -296,6 +296,14 @@ public class CheckersData {
         }
     }
 
+    boolean checkIf(int[][] b, int row, int col, int color) {
+        if (row < 0 || row > 7 || col < 0 || col > 7) {
+            return false;
+        } else {
+            return b[row][col] == color;
+        }
+    }
+
     boolean boardContainsJumps(int player) {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -325,22 +333,22 @@ public class CheckersData {
         return i;
     }
 
-    ArrayList<CheckersMove> getDoubleJumpsFrom(CheckersMove previousMove, boolean isKing, int player, int row, int col) {
+    ArrayList<CheckersMove> getDoubleJumpsFrom(CheckersData initalState, CheckersData updatedBoard, CheckersMove previousMove, boolean isKing, int player, int row, int col) {
         ArrayList<CheckersMove> doubleJumps = new ArrayList<CheckersMove>();
         switch (player) {
             case RED:
                 if (isKing) {
                     if (
-                        (checkIf(row + 1, col + 1, BLACK) || checkIf(row + 1, col + 1, BLACK_KING))
-                        && checkIf(row + 2, col + 2, EMPTY)
+                        (checkIf(updatedBoard.getBoard(), row + 1, col + 1, BLACK) || checkIf(updatedBoard.getBoard(), row + 1, col + 1, BLACK_KING))
+                        && checkIf(updatedBoard.getBoard(), row + 2, col + 2, EMPTY)
                         ) {
                         CheckersMove newMove = previousMove.clone();
                         newMove.addMove(row + 2, col + 2);
                         doubleJumps.add(newMove);
                     }
                     if (
-                        (checkIf(row + 1, col - 1, BLACK) || checkIf(row + 1, col - 1, BLACK_KING))
-                        && checkIf(row + 2, col - 2, EMPTY)
+                        (checkIf(updatedBoard.getBoard(), row + 1, col - 1, BLACK) || checkIf(updatedBoard.getBoard(), row + 1, col - 1, BLACK_KING))
+                        && checkIf(updatedBoard.getBoard(), row + 2, col - 2, EMPTY)
                         ) {
                         CheckersMove newMove = previousMove.clone();
                         newMove.addMove(row + 2, col - 2);
@@ -348,16 +356,16 @@ public class CheckersData {
                     }
                 }
                 if (
-                    (checkIf(row - 1, col + 1, BLACK) || checkIf(row - 1, col + 1, BLACK_KING))
-                    && checkIf(row - 2, col + 2, EMPTY)
+                    (checkIf(updatedBoard.getBoard(), row - 1, col + 1, BLACK) || checkIf(updatedBoard.getBoard(), row - 1, col + 1, BLACK_KING))
+                    && checkIf(updatedBoard.getBoard(), row - 2, col + 2, EMPTY)
                     ) {
                     CheckersMove newMove = previousMove.clone();
                     newMove.addMove(row - 2, col + 2);
                     doubleJumps.add(newMove);
                 }
                 if (
-                    (checkIf(row - 1, col - 1, BLACK) || checkIf(row - 1, col - 1, BLACK_KING))
-                    && checkIf(row - 2, col - 2, EMPTY)
+                    (checkIf(updatedBoard.getBoard(), row - 1, col - 1, BLACK) || checkIf(updatedBoard.getBoard(), row - 1, col - 1, BLACK_KING))
+                    && checkIf(updatedBoard.getBoard(), row - 2, col - 2, EMPTY)
                     ) {
                     CheckersMove newMove = previousMove.clone();
                     newMove.addMove(row - 2, col - 2);
@@ -367,16 +375,16 @@ public class CheckersData {
             case BLACK:
                 if (isKing) {
                     if (
-                    (checkIf(row - 1, col + 1, RED) || checkIf(row - 1, col + 1, RED_KING))
-                    && checkIf(row - 2, col + 2, EMPTY)
+                    (checkIf(updatedBoard.getBoard(), row - 1, col + 1, RED) || checkIf(updatedBoard.getBoard(), row - 1, col + 1, RED_KING))
+                    && checkIf(updatedBoard.getBoard(), row - 2, col + 2, EMPTY)
                     ) {
                         CheckersMove newMove = previousMove.clone();
                         newMove.addMove(row - 2, col + 2);
                         doubleJumps.add(newMove);
                     }
                     if (
-                    (checkIf(row - 1, col - 1, RED) || checkIf(row - 1, col - 1, RED_KING))
-                    && checkIf(row - 2, col - 2, EMPTY)
+                    (checkIf(updatedBoard.getBoard(), row - 1, col - 1, RED) || checkIf(updatedBoard.getBoard(), row - 1, col - 1, RED_KING))
+                    && checkIf(updatedBoard.getBoard(), row - 2, col - 2, EMPTY)
                     ) {
                         CheckersMove newMove = previousMove.clone();
                         newMove.addMove(row - 2, col - 2);
@@ -384,16 +392,16 @@ public class CheckersData {
                     }
                 }
                 if (
-                    (checkIf(row + 1, col + 1, RED) || checkIf(row + 1, col + 1, RED_KING))
-                    && checkIf(row + 2, col + 2, EMPTY)
+                    (checkIf(updatedBoard.getBoard(), row + 1, col + 1, RED) || checkIf(updatedBoard.getBoard(), row + 1, col + 1, RED_KING))
+                    && checkIf(updatedBoard.getBoard(), row + 2, col + 2, EMPTY)
                     ) {
                     CheckersMove newMove = previousMove.clone();
                     newMove.addMove(row + 2, col + 2);
                     doubleJumps.add(newMove);
                 }
                 if (
-                    (checkIf(row + 1, col - 1, RED) || checkIf(row + 1, col - 1, RED_KING))
-                    && checkIf(row + 2, col - 2, EMPTY)
+                    (checkIf(updatedBoard.getBoard(), row + 1, col - 1, RED) || checkIf(updatedBoard.getBoard(), row + 1, col - 1, RED_KING))
+                    && checkIf(updatedBoard.getBoard(), row + 2, col - 2, EMPTY)
                     ) {
                     CheckersMove newMove = previousMove.clone();
                     newMove.addMove(row + 2, col - 2);
@@ -402,6 +410,19 @@ public class CheckersData {
                 break;
             default:
                 break;
+        }
+        ArrayList<CheckersMove> temp = new ArrayList<CheckersMove>();
+        for(CheckersMove move : doubleJumps) {
+            CheckersData temp_state = new CheckersData(updatedBoard.getBoard());
+            temp_state.makeMove(move);
+            ArrayList<CheckersMove> newMoves = new ArrayList<CheckersMove>();
+            newMoves = getDoubleJumpsFrom(initalState, temp_state, move, isKing(move), player, move.getLastRow(), move.getLastCol());
+            for(int i = 0; i < newMoves.size(); i++) {
+                temp.add(newMoves.get(i));
+            }
+        }
+        for (CheckersMove move : temp) {
+            doubleJumps.add(move);
         }
         return doubleJumps;
     }
@@ -480,7 +501,9 @@ public class CheckersData {
         ArrayList<CheckersMove> doubleJumps = new ArrayList<CheckersMove>();
         ArrayList<CheckersMove> temp = new ArrayList<CheckersMove>();
         for(CheckersMove move : legalJumps) {
-            temp = getDoubleJumpsFrom(move, isKing(move), player, move.getLastRow(), move.getLastCol());
+            CheckersData temp_state = new CheckersData(board);
+            temp_state.makeMove(move);
+            temp = getDoubleJumpsFrom(this, temp_state, move, isKing(move), player, move.getLastRow(), move.getLastCol());
             for(int i = 0; i < temp.size(); i++) {
                 doubleJumps.add(temp.get(i));
             }

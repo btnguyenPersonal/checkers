@@ -20,6 +20,9 @@ public class CheckersMove {
     
     ArrayList<Integer> rows = new ArrayList<Integer>();
     ArrayList<Integer> cols = new ArrayList<Integer>();
+
+    double alpha;
+    double beta;
     
     CheckersMove(int r1, int c1, int r2, int c2) {
         // Constructor, a single move from
@@ -45,16 +48,26 @@ public class CheckersMove {
     int getLastRow() {
         return rows.get(rows.size() - 1);
     }
+
+    double getAlpha() {
+        return alpha;
+    }
+
+    double getBeta() {
+        return beta;
+    }
+
+    void setAlpha(double a) {
+        alpha = a;
+    }
+
+    void setBeta(double b) {
+        beta = b;
+    }
     
     boolean isJump() {
-        // Test whether this move is a jump.  It is assumed that
-        // the move is legal.  In a jump, the piece moves two
-        // rows.  (In a regular move, it only moves one row.)
         return (rows.get(0) - rows.get(1) == 2 || rows.get(0) - rows.get(1) == -2);
-    }    // TODO
-    // Implement your helper methods here.
-
-    
+    }
     
     void addMove(int r, int c){
         // add another move (continuous jump), which goes from
