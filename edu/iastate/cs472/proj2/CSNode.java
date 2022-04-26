@@ -58,5 +58,9 @@ public class CSNode<E>
     this.data = data;
   }
 
+  public void printData() {
+      System.out.println(data);
+  }
+
 }
 
