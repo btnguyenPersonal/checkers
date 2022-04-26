@@ -48,13 +48,14 @@ public class AlphaBetaSearch extends AdversarialSearch {
         for (int i = 0; i < legalMoves.length; i++) {
             CheckersData temp_state = new CheckersData(board.getBoard());
             temp_state.makeMove(legalMoves[i]);
-            value = MaxValue(temp_state, CheckersData.RED, depth - 1, -9999, 9999)[0];
+            value = MaxValue(temp_state, CheckersData.RED, depth - 1, -9999, 9999)[1];
             System.out.println(i + ": " + value);
             if (min > value) {
                 min = value;
                 lowestIndex = i;
             }
         }
+        System.out.println("Index: " + lowestIndex);
         return legalMoves[lowestIndex];
     }
 
@@ -62,66 +63,56 @@ public class AlphaBetaSearch extends AdversarialSearch {
         CheckersMove[] moves = state.getLegalMoves(player);
         if (moves == null) {
             double[] value = new double[3];
-            value[0] = player == CheckersData.RED ? -1 : 1;
             value[1] = player == CheckersData.RED ? -1 : 1;
-            value[2] = beta;
             return value;
         }
-        double[] evals = new double[moves.length];
-        double[] max = {-9999, alpha, beta};
+        double[] v = {alpha, beta};
         for (int i = 0; i < moves.length; i++) {
-            double[] value = new double[3];
             if (depth == 0) {
-                value[0] = eval(moves[i], state);
-                value[1] = alpha;
-                value[2] = beta;
+                v[1] = eval(moves[i], state);
             } else {
+                double[] new_value = new double[2];
                 CheckersData temp_state = new CheckersData(state.getBoard());
                 temp_state.makeMove(moves[i]);
-                value = MinValue(temp_state, swapPlayer(player), depth - 1, alpha, beta);
-            }
-            if (max[0] < value[0]) {
-                max[0] = value[0];
-            }
-            if (max[0] >= alpha) {
-                max[2] = max[0];
-                return max;
+                new_value = MinValue(temp_state, swapPlayer(player), depth - 1, v[0], v[1]);
+                if (v[0] < new_value[0]) {
+                    v[0] = new_value[0];
+                }
+                if (v[0] >= v[1]) {
+                    System.out.println("pruning max");
+                    return v;
+                }
             }
         }
-        max[1] = max[0];
-        return max;
+        return v;
     }
 
     double[] MinValue(CheckersData state, int player, int depth, double alpha, double beta) {
         CheckersMove[] moves = state.getLegalMoves(player);
         if (moves == null) {
             double[] value = new double[3];
-            value[0] = player == CheckersData.RED ? -1 : 1;
-            value[1] = alpha;
-            value[2] = player == CheckersData.RED ? -1 : 1;
+            value[1] = player == CheckersData.RED ? -1 : 1;
             return value;
         }
-        double[] evals = new double[moves.length];
-        double[] min = {9999, alpha, beta};
+        double[] v = {alpha, beta};
         for (int i = 0; i < moves.length; i++) {
-            double[] value = new double[3];
             if (depth == 0) {
-                value[0] = eval(moves[i], state);
+                v[0] = eval(moves[i], state);
             } else {
+                double[] new_value = new double[2];
                 CheckersData temp_state = new CheckersData(state.getBoard());
                 temp_state.makeMove(moves[i]);
-                value = MaxValue(temp_state, swapPlayer(player), depth - 1, alpha, beta);
-            }
-            if (min[0] > value[0]) {
-                min[0] = value[0];
-            }
-            if (min[0] <= beta) {
-                min[1] = min[0];
-                return min;
+                new_value = MaxValue(temp_state, swapPlayer(player), depth - 1, v[0], v[1]);
+                if (v[1] > new_value[1]) {
+                    v[1] = new_value[1];
+                } 
+                if (v[1] <= v[0]) {
+                    System.out.println("pruning min");
+                    return v;
+                }
             }
         }
-        min[2] = min[0];
-        return min;
+        return v;
     }
 
     double eval(CheckersMove move, CheckersData state) {
@@ -129,27 +120,5 @@ public class AlphaBetaSearch extends AdversarialSearch {
         temp_state.makeMove(move);
         return temp_state.getEvaluation();
     }
-
-    /*
-        function ALPHA-BETA-SEARCH(state) returns an action
-            MAX-VALUE state,
-            return the action in ACTIONS(state) with value
-
-        function Max-Value(state) returns a utility value
-            if Terminal-Test(state) returns a utility value
-        for each inActions(state) do
-            Max(Min-Value(result()))
-            if then return
-            Max
-        return
-
-        function Min-Value(state) returns a utility value
-            if Terminal-Test(state) returns a utility value
-        for each inActions(state) do
-            Min(Max-Value(result()))
-            if then return // prune
-            Min
-        return
-    */
 
 }
