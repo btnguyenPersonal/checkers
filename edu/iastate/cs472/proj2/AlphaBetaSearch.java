@@ -61,7 +61,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
 
     double MaxValue(CheckersData state, int player, int depth) {
         CheckersMove[] moves = state.getLegalMoves(player);
-        if (moves.length == 0) {
+        if (moves == null || moves.length == 0) {
             return player == CheckersData.RED ? -1 : 1;
         }
         double[] evals = new double[moves.length];
@@ -84,7 +84,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
 
     double MinValue(CheckersData state, int player, int depth) {
         CheckersMove[] moves = state.getLegalMoves(player);
-        if (moves.length == 0) {
+        if (moves == null || moves.length == 0) {
             return player == CheckersData.RED ? -1 : 1;
         }
         double[] evals = new double[moves.length];
