@@ -41,67 +41,86 @@ public class AlphaBetaSearch extends AdversarialSearch {
     }
 
     CheckersMove AlphaBetaSearch(CheckersMove[] legalMoves) {
-        int depth = 5;
+        int depth = 8;
         double min = 9999;
         double value = 0;
         int lowestIndex = 0;
         for (int i = 0; i < legalMoves.length; i++) {
             CheckersData temp_state = new CheckersData(board.getBoard());
             temp_state.makeMove(legalMoves[i]);
-            value = MaxValue(temp_state, CheckersData.RED, depth - 1);
+            value = MaxValue(temp_state, CheckersData.RED, depth - 1, -9999, 9999)[0];
             System.out.println(i + ": " + value);
             if (min > value) {
                 min = value;
                 lowestIndex = i;
             }
         }
-        System.out.println("i: " + lowestIndex);
         return legalMoves[lowestIndex];
     }
 
-    double MaxValue(CheckersData state, int player, int depth) {
+    double[] MaxValue(CheckersData state, int player, int depth, double alpha, double beta) {
         CheckersMove[] moves = state.getLegalMoves(player);
-        if (moves == null || moves.length == 0) {
-            return player == CheckersData.RED ? -1 : 1;
+        if (moves == null) {
+            double[] value = new double[3];
+            value[0] = player == CheckersData.RED ? -1 : 1;
+            value[1] = player == CheckersData.RED ? -1 : 1;
+            value[2] = beta;
+            return value;
         }
         double[] evals = new double[moves.length];
-        double max = -9999;
+        double[] max = {-9999, alpha, beta};
         for (int i = 0; i < moves.length; i++) {
-            double value;
+            double[] value = new double[3];
             if (depth == 0) {
-                value = eval(moves[i], state);
+                value[0] = eval(moves[i], state);
+                value[1] = alpha;
+                value[2] = beta;
             } else {
                 CheckersData temp_state = new CheckersData(state.getBoard());
                 temp_state.makeMove(moves[i]);
-                value = MinValue(temp_state, swapPlayer(player), depth - 1);
+                value = MinValue(temp_state, swapPlayer(player), depth - 1, alpha, beta);
             }
-            if (max < value) {
-                max = value;
+            if (max[0] < value[0]) {
+                max[0] = value[0];
+            }
+            if (max[0] >= alpha) {
+                max[2] = max[0];
+                return max;
             }
         }
+        max[1] = max[0];
         return max;
     }
 
-    double MinValue(CheckersData state, int player, int depth) {
+    double[] MinValue(CheckersData state, int player, int depth, double alpha, double beta) {
         CheckersMove[] moves = state.getLegalMoves(player);
-        if (moves == null || moves.length == 0) {
-            return player == CheckersData.RED ? -1 : 1;
+        if (moves == null) {
+            double[] value = new double[3];
+            value[0] = player == CheckersData.RED ? -1 : 1;
+            value[1] = alpha;
+            value[2] = player == CheckersData.RED ? -1 : 1;
+            return value;
         }
         double[] evals = new double[moves.length];
-        double min = 9999;
+        double[] min = {9999, alpha, beta};
         for (int i = 0; i < moves.length; i++) {
-            double value;
+            double[] value = new double[3];
             if (depth == 0) {
-                value = eval(moves[i], state);
+                value[0] = eval(moves[i], state);
             } else {
                 CheckersData temp_state = new CheckersData(state.getBoard());
                 temp_state.makeMove(moves[i]);
-                value = MaxValue(temp_state, swapPlayer(player), depth - 1);
+                value = MaxValue(temp_state, swapPlayer(player), depth - 1, alpha, beta);
             }
-            if (min > value) {
-                min = value;
+            if (min[0] > value[0]) {
+                min[0] = value[0];
+            }
+            if (min[0] <= beta) {
+                min[1] = min[0];
+                return min;
             }
         }
+        min[2] = min[0];
         return min;
     }
 
