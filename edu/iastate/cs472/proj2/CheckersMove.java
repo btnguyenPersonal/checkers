@@ -20,9 +20,6 @@ public class CheckersMove {
     
     ArrayList<Integer> rows = new ArrayList<Integer>();
     ArrayList<Integer> cols = new ArrayList<Integer>();
-
-    double alpha;
-    double beta;
     
     CheckersMove(int r1, int c1, int r2, int c2) {
         // Constructor, a single move from
@@ -47,22 +44,6 @@ public class CheckersMove {
 
     int getLastRow() {
         return rows.get(rows.size() - 1);
-    }
-
-    double getAlpha() {
-        return alpha;
-    }
-
-    double getBeta() {
-        return beta;
-    }
-
-    void setAlpha(double a) {
-        alpha = a;
-    }
-
-    void setBeta(double b) {
-        beta = b;
     }
     
     boolean isJump() {

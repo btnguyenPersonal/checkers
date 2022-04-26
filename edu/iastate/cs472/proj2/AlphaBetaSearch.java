@@ -48,7 +48,7 @@ public class AlphaBetaSearch extends AdversarialSearch {
         for (int i = 0; i < legalMoves.length; i++) {
             CheckersData temp_state = new CheckersData(board.getBoard());
             temp_state.makeMove(legalMoves[i]);
-            value = MaxValue(temp_state, CheckersData.RED, depth - 1, -9999, 9999)[1];
+            value = MaxValue(temp_state, CheckersData.RED, depth - 1, -9999, 9999)[0];
             System.out.println(i + ": " + value);
             if (min > value) {
                 min = value;
@@ -62,25 +62,30 @@ public class AlphaBetaSearch extends AdversarialSearch {
     double[] MaxValue(CheckersData state, int player, int depth, double alpha, double beta) {
         CheckersMove[] moves = state.getLegalMoves(player);
         if (moves == null) {
-            double[] value = new double[3];
-            value[1] = player == CheckersData.RED ? -1 : 1;
+            double[] value = new double[2];
+            value[0] = player == CheckersData.RED ? -1 : 1;
             return value;
         }
         double[] v = {alpha, beta};
         for (int i = 0; i < moves.length; i++) {
+            // if reached max depth, set B to eval
             if (depth == 0) {
-                v[1] = eval(moves[i], state);
+                v[0] = eval(state);
+                break;
             } else {
+                // get value of child node
                 double[] new_value = new double[2];
                 CheckersData temp_state = new CheckersData(state.getBoard());
                 temp_state.makeMove(moves[i]);
                 new_value = MinValue(temp_state, swapPlayer(player), depth - 1, v[0], v[1]);
-                if (v[0] < new_value[0]) {
-                    v[0] = new_value[0];
-                }
+                // if A >= B prune
                 if (v[0] >= v[1]) {
-                    System.out.println("pruning max");
                     return v;
+                }
+                // if A < B_child
+                if (v[0] < new_value[1]) {
+                    // set A to B_child
+                    v[0] = new_value[1];
                 }
             }
         }
@@ -90,35 +95,38 @@ public class AlphaBetaSearch extends AdversarialSearch {
     double[] MinValue(CheckersData state, int player, int depth, double alpha, double beta) {
         CheckersMove[] moves = state.getLegalMoves(player);
         if (moves == null) {
-            double[] value = new double[3];
+            double[] value = new double[2];
             value[1] = player == CheckersData.RED ? -1 : 1;
             return value;
         }
         double[] v = {alpha, beta};
         for (int i = 0; i < moves.length; i++) {
+            // if reached max depth, set A to eval
             if (depth == 0) {
-                v[0] = eval(moves[i], state);
+                v[1] = eval(state);
+                break;
             } else {
+                // get value of child node
                 double[] new_value = new double[2];
                 CheckersData temp_state = new CheckersData(state.getBoard());
                 temp_state.makeMove(moves[i]);
                 new_value = MaxValue(temp_state, swapPlayer(player), depth - 1, v[0], v[1]);
-                if (v[1] > new_value[1]) {
-                    v[1] = new_value[1];
-                } 
+                // if B <= A prune
                 if (v[1] <= v[0]) {
-                    System.out.println("pruning min");
                     return v;
                 }
+                // if B > A_child
+                if (v[1] > new_value[0]) {
+                    // set B to A_child
+                    v[1] = new_value[0];
+                } 
             }
         }
         return v;
     }
 
-    double eval(CheckersMove move, CheckersData state) {
-        CheckersData temp_state = new CheckersData(state.getBoard());
-        temp_state.makeMove(move);
-        return temp_state.getEvaluation();
+    double eval(CheckersData state) {
+        return state.getEvaluation();
     }
 
 }
