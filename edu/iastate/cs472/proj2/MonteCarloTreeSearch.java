@@ -42,22 +42,43 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
         CSTree<CheckersData> gameTree = new CSTree<CheckersData>(root);
         gameTree.getRoot().printData();
         for (int playouts = 0; playouts < 200; playouts++) {
-
+            CSNode<CheckersData> leaf = select(gameTree);
+            CSNode<CheckersData> child = expand(leaf);
+            int result = simulate(child);
+            backpropogate(result, child);
         }
         
+        // return best move
         return legalMoves[0];
     }
     
     // selection
     // start at root, use UCB
-    
+    public CSNode<CheckersData> select(CSTree<CheckersData> tree) {
+        CSNode<CheckersData> leaf;
+        // take leaf from one of nodes from tree
+        return leaf;
+    }
+
     // expansion
     // choose random move from all moves
+    public CSNode<CheckersData> expand(CSNode<CheckersData> leaf) {
+        return leaf.expandRandomMove();
+    }
 
     // simulation
-    //
+    // get evaluation
+    public int simulate(CSNode<CheckersData> expandedNode) {
+        // find evaluation of win/loss/draw
+        int result = 0;
+        return result;
+    }
+
 
     // back propogation
     // if draw, give back 0.5
-
+    public void backpropogate(int result, CSNode<CheckersData> node) {
+        // go back up through each parent node, and add result to it
+        // prob some kind of recursive helper method
+    }
 }

@@ -24,4 +24,9 @@ public class CSTree<E>
     public void setRoot(CSNode<E> e) {
         root = e;
     }
+
+    public CSNode<E> getPromisingNode() {
+        // find a promising node connected to root, then return it
+        return root;
+    }
 }
