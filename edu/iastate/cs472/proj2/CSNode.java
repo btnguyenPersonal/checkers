@@ -11,6 +11,7 @@ public class CSNode
     public ArrayList<CSNode> children;
     public CheckersData data;
     public int player;
+    public CheckersMove prevMove;
     int playouts = 0;
     int wins = 0;
 
@@ -26,8 +27,9 @@ public class CSNode
         this.parent = parent;
         this.children = children;
         this.data = data;
-        this.player = (player == CheckersData.RED ? CheckersData.BLACK : CheckersData.RED);
+        this.player = player;
     }
+
 
     public boolean isLeaf()
     {
@@ -82,20 +84,22 @@ public class CSNode
     // need to test
     public CSNode expandRandomMove() {
         CheckersMove[] moves = data.getLegalMoves(player);
-        if (moves == null) {
-            System.out.println(data);
-        }
         ArrayList<CSNode> nodes = new ArrayList<CSNode>();
         for (int i = 0; i < moves.length; i++) {
             CheckersData temp_board = new CheckersData(data.getBoard());
             temp_board.makeMove(moves[i]);
-            CSNode node = new CSNode(temp_board, this, null, player);
+            CSNode node = new CSNode(temp_board, this, null, swapPlayer(player));
+            node.prevMove = moves[i];
             nodes.add(node);
         }
         setChildren(nodes);
         Random r = new Random();
         int index = r.nextInt(nodes.size());
         return nodes.get(index);
+    }
+
+    public int swapPlayer(int player) {
+        return (player == CheckersData.RED ? CheckersData.BLACK : CheckersData.RED);
     }
 
     public boolean isTerminal() {
@@ -107,20 +111,15 @@ public class CSNode
     }
 
     public CSNode getBestUCT() {
-        double max = -9999;
-        for (CSNode node : children) {
-            if (max < node.getUCT()) {
-                max = node.getUCT();
+        double max = children.get(0).getUCT();
+        int index = 0;
+        for (int i = 1; i < children.size(); i++) {
+            if (max < children.get(i).getUCT()) {
+                max = children.get(i).getUCT();
+                index = i;
             }
         }
-        for (CSNode node : children) {
-            if (max == node.getUCT()) {
-                System.out.println("max: " + node.getUCT());
-                return node;
-            }
-        }
-        System.out.println("neverever error");
-        return children.get(0);
+        return children.get(index);
     }
 
     public boolean isGameOver() {

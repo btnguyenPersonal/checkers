@@ -29,4 +29,16 @@ public class CSTree
         // find a promising node connected to root, then return it
         return root;
     }
+
+    public CheckersMove getBestMove() {
+        CSNode bestNode = root.getBestUCT();
+        return bestNode.prevMove;
+    }
+
+    public CSNode getMaxNode(CSNode a, CSNode b) {
+        if ((double) a.getWins() / (double) a.getPlayouts() > (double) b.getWins() / (double) b.getPlayouts()) {
+            return a;
+        }
+        return b;
+    }
 }
