@@ -107,7 +107,6 @@ public class CSNode
     }
 
     public CSNode getBestUCT() {
-        System.out.println(children.size());
         double max = -9999;
         for (CSNode node : children) {
             if (max < node.getUCT()) {
@@ -116,9 +115,11 @@ public class CSNode
         }
         for (CSNode node : children) {
             if (max == node.getUCT()) {
+                System.out.println("max: " + node.getUCT());
                 return node;
             }
         }
+        System.out.println("neverever error");
         return children.get(0);
     }
 

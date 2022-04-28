@@ -57,8 +57,6 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
     public CSNode select(CSTree tree) {
         CSNode leaf = tree.getRoot();
         while (!leaf.isLeaf()) {
-            System.out.println(leaf.getData());
-            System.out.println("selected player: " + leaf.player);
             leaf = leaf.getBestUCT();
         }
         return leaf;
