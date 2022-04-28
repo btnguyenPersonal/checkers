@@ -111,6 +111,38 @@ public class CheckersData {
         return board[row][col];
     }
 
+    public double getEvaluation(int player) {
+        if (getLegalMoves(player) == null) {
+            return player == CheckersData.RED ? -1 : 1;
+        }
+        double black = 0;
+        double red = 0;
+        for (int row = 0; row < 8; row++) {
+            for(int col = 0; col < 8; col++) {
+                if (board[row][col] == RED) {
+                    red++;
+                } else if (board[row][col] == RED_KING) {
+                    red += 2;
+                } else if (board[row][col] == BLACK) {
+                    black++;
+                } else if (board[row][col] == BLACK_KING) {
+                    black += 2;
+                }
+            }
+        }
+        if (black == 0) {
+            return 1;
+        }
+        if (red == 0) {
+            return -1;
+        }
+        if (red > black) {
+            return -1 * ((black / 24) / (red / 24) - 1);
+        } else {
+            return (red / 24) / (black / 24) - 1;
+        }
+    }
+
     public double getEvaluation() {
         double black = 0;
         double red = 0;

@@ -60,6 +60,11 @@ public class CSNode
         this.children = children;
     }
 
+    public CSNode getParent()
+    {
+        return parent;
+    }
+
     public CheckersData getData()
     {
         return data;
@@ -77,11 +82,15 @@ public class CSNode
     // need to test
     public CSNode expandRandomMove() {
         CheckersMove[] moves = data.getLegalMoves(player);
+        if (moves == null) {
+            System.out.println(data);
+        }
         ArrayList<CSNode> nodes = new ArrayList<CSNode>();
         for (int i = 0; i < moves.length; i++) {
             CheckersData temp_board = new CheckersData(data.getBoard());
             temp_board.makeMove(moves[i]);
             CSNode node = new CSNode(temp_board, this, null, player);
+            nodes.add(node);
         }
         setChildren(nodes);
         Random r = new Random();
@@ -89,11 +98,16 @@ public class CSNode
         return nodes.get(index);
     }
 
+    public boolean isTerminal() {
+        return data.getLegalMoves(player) == null;
+    }
+
     public double getUCT() {
         return ((double) wins / (double) playouts) + 1.41 * Math.sqrt(Math.log(parent.getPlayouts()) / (double) playouts);
     }
 
     public CSNode getBestUCT() {
+        System.out.println(children.size());
         double max = -9999;
         for (CSNode node : children) {
             if (max < node.getUCT()) {
@@ -105,17 +119,19 @@ public class CSNode
                 return node;
             }
         }
-        System.out.println("Error lowets UCB");
         return children.get(0);
     }
 
     public boolean isGameOver() {
         // since draws are not possible in this game of checkers
         // do not need to factor them in
-        return data.getEvaluation() == -1 || data.getEvaluation() == 1;
+        return getGameScore() == -1 || getGameScore() == 1;
     }
 
     public int getGameScore() {
+        if (data.getLegalMoves(player) == null) {
+            return player == CheckersData.RED ? -1 : 1;
+        }
         return (int) data.getEvaluation();
     }
 
