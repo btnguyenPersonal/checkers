@@ -41,7 +41,7 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
         CSNode root = new CSNode(board, CheckersData.BLACK);
         CSTree gameTree = new CSTree(root);
         gameTree.getRoot().printData();
-        for (int playouts = 0; playouts < 100; playouts++) {
+        for (int playouts = 0; playouts < 200; playouts++) {
             CSNode leaf = select(gameTree);
             CSNode child = expand(leaf);
             int result = simulate(child);
@@ -67,6 +67,9 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
     // expansion
     // choose random move from all moves
     public CSNode expand(CSNode leaf) {
+        if (leaf.isGameOver()) {
+            return leaf;
+        }
         return leaf.expandRandomMove();
     }
 
@@ -84,12 +87,12 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
     public void backpropogate(int result, CSNode node) {
         // go back up through each parent node, and add result to it
         // prob some kind of recursive helper method
-        while (node.getParent() != null) {
-            node = node.getParent();
+        while (node != null) {
             if (result == 1) {
                 node.incWins();
             }
             node.incPlayouts();
+            node = node.getParent();
         }
     }
 }
