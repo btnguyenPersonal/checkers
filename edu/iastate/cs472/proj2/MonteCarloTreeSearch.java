@@ -38,7 +38,7 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
         //    	BACKPROPAGATE(result, child)
         //    return the move in ACTIONS(state) whose node has highest number of playouts
 
-        CSNode root = new CSNode(board);
+        CSNode root = new CSNode(board, CheckersData.BLACK);
         CSTree gameTree = new CSTree(root);
         gameTree.getRoot().printData();
         for (int playouts = 0; playouts < 200; playouts++) {
@@ -55,8 +55,10 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
     // selection
     // start at root, use UCB
     public CSNode select(CSTree tree) {
-        CSNode leaf = new CSNode();
-        // take leaf from one of nodes from tree
+        CSNode leaf = tree.getRoot();
+        while (!leaf.isLeaf()) {
+            leaf = leaf.getBestUCT();
+        }
         return leaf;
     }
 
@@ -69,11 +71,12 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
     // simulation
     // get evaluation
     public int simulate(CSNode expandedNode) {
-        // find evaluation of win/loss/draw
-        int result = 0;
-        return result;
+        CSNode temp = expandedNode;
+        while (!temp.isGameOver()) {
+            temp = temp.expandRandomMove();
+        }
+        return temp.getGameScore();
     }
-
 
     // back propogation
     // if draw, give back 0.5
