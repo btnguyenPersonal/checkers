@@ -38,12 +38,12 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
         //    	BACKPROPAGATE(result, child)
         //    return the move in ACTIONS(state) whose node has highest number of playouts
 
-        CSNode<CheckersData> root = new CSNode<CheckersData>(board);
-        CSTree<CheckersData> gameTree = new CSTree<CheckersData>(root);
+        CSNode root = new CSNode(board);
+        CSTree gameTree = new CSTree(root);
         gameTree.getRoot().printData();
         for (int playouts = 0; playouts < 200; playouts++) {
-            CSNode<CheckersData> leaf = select(gameTree);
-            CSNode<CheckersData> child = expand(leaf);
+            CSNode leaf = select(gameTree);
+            CSNode child = expand(leaf);
             int result = simulate(child);
             backpropogate(result, child);
         }
@@ -54,21 +54,21 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
     
     // selection
     // start at root, use UCB
-    public CSNode<CheckersData> select(CSTree<CheckersData> tree) {
-        CSNode<CheckersData> leaf;
+    public CSNode select(CSTree tree) {
+        CSNode leaf = new CSNode();
         // take leaf from one of nodes from tree
         return leaf;
     }
 
     // expansion
     // choose random move from all moves
-    public CSNode<CheckersData> expand(CSNode<CheckersData> leaf) {
+    public CSNode expand(CSNode leaf) {
         return leaf.expandRandomMove();
     }
 
     // simulation
     // get evaluation
-    public int simulate(CSNode<CheckersData> expandedNode) {
+    public int simulate(CSNode expandedNode) {
         // find evaluation of win/loss/draw
         int result = 0;
         return result;
@@ -77,7 +77,7 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
 
     // back propogation
     // if draw, give back 0.5
-    public void backpropogate(int result, CSNode<CheckersData> node) {
+    public void backpropogate(int result, CSNode node) {
         // go back up through each parent node, and add result to it
         // prob some kind of recursive helper method
     }

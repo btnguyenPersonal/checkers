@@ -204,7 +204,7 @@ public class CheckersData {
      *
      * @param player color of the player, RED or BLACK
      */
-    CheckersMove[] getLegalMoves(int player) {
+    public CheckersMove[] getLegalMoves(int player) {
         ArrayList<CheckersMove> legalMoves = new ArrayList<CheckersMove>();
         legalMoves = getLegalMovesHelper(player, boardContainsJumps(player));
         if (legalMoves.size() == 0) {
@@ -217,7 +217,7 @@ public class CheckersData {
         return output;
     }
 
-    ArrayList<CheckersMove> getLegalMovesHelper(int player, boolean hasJumps) {
+    public ArrayList<CheckersMove> getLegalMovesHelper(int player, boolean hasJumps) {
         ArrayList<CheckersMove> moves = new ArrayList<CheckersMove>();
         ArrayList<CheckersMove> output = new ArrayList<CheckersMove>();
         for (int row = 0; row < 8; row++) {

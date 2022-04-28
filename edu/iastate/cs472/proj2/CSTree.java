@@ -1,15 +1,15 @@
 package edu.iastate.cs472.proj2; 
 
-public class CSTree<E> 
+public class CSTree
 {
-	CSNode<E> root;
+	CSNode root;
 	int size = 0;
 
-    public CSTree(CSNode<E> r) {
+    public CSTree(CSNode r) {
         root = r;
     }
 
-    public CSNode<E> getRoot() {
+    public CSNode getRoot() {
         return root;
     }
 
@@ -21,11 +21,11 @@ public class CSTree<E>
         size++;
     }
 
-    public void setRoot(CSNode<E> e) {
+    public void setRoot(CSNode e) {
         root = e;
     }
 
-    public CSNode<E> getPromisingNode() {
+    public CSNode getPromisingNode() {
         // find a promising node connected to root, then return it
         return root;
     }

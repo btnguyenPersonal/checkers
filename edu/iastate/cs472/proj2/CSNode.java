@@ -1,61 +1,70 @@
 package edu.iastate.cs472.proj2;
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Child-sibling node type for an n-ary tree.
  */
-public class CSNode<E>
+public class CSNode
 {
-    protected CSNode<E> firstChild;
-    protected CSNode<E> nextSibling;
-    protected E data;
-    protected int player = CheckersData.RED;
+    public CSNode parent;
+    public ArrayList<CSNode> children;
+    public CheckersData data;
+    public int player = 3; // BLACK
+    int playouts = 0;
+    int wins = 0;
 
     public CSNode(){}
 
-    public CSNode(E data)
+    public CSNode(CheckersData data)
     {
         this(data, null, null);
     }
 
-    public CSNode(E data, CSNode<E> child, CSNode<E> sibling)
+    public CSNode(CheckersData data, CSNode parent, ArrayList<CSNode> children)
     {
-        this.firstChild = child;
-        this.nextSibling = sibling;
+        this.parent = parent;
+        this.children = children;
         this.data = data;
     }
 
     public boolean isLeaf()
     {
-        return firstChild == null;
+        return children == null;
     }
 
-    public CSNode<E> getChild()
+    public ArrayList<CSNode> getChildren()
     {
-        return firstChild;
+        return children;
     }
 
-    public void setChild(CSNode<E> child)
+    public void incWins() {
+        wins++;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void incPlayouts() {
+        playouts++;
+    }
+
+    public int getPlayouts() {
+        return playouts;
+    }
+
+    public void setChildren(ArrayList<CSNode> children)
     {
-        this.firstChild = child;
+        this.children = children;
     }
 
-    public CSNode<E> getSibling()
-    {
-        return nextSibling;
-    }
-
-    public void setSibling(CSNode<E> sibling)
-    {
-        this.nextSibling = sibling;
-    }
-
-    public E getData()
+    public CheckersData getData()
     {
         return data;
     }
 
-    public void setData(E data)
+    public void setData(CheckersData data)
     {
         this.data = data;
     }
@@ -64,18 +73,19 @@ public class CSNode<E>
         System.out.println(data);
     }
 
-    public CSNode<CheckersData> expandRandomMove() {
+    // need to test
+    public CSNode expandRandomMove() {
+        CheckersMove[] moves = data.getLegalMoves(player);
+        ArrayList<CSNode> nodes = new ArrayList<CSNode>();
+        for (int i = 0; i < moves.length; i++) {
+            CheckersData temp_board = new CheckersData(data.getBoard());
+            temp_board.makeMove(moves[i]);
+            CSNode node = new CSNode(temp_board, this, null);
+        }
+        setChildren(nodes);
         Random r = new Random();
-        CheckersData currentData = (CheckersData) data;
-        CheckersMove[] moves = currentData.getLegalMoves(player);
-        int i = r.nextInt(moves.length);
-        CheckersMove move = moves[i];
-        CheckersData temp_board = new CheckersData(currentData.getBoard());
-        temp_board.makeMove(move);
-        CSNode<E> new_node = new CSNode<E>((E) temp_board);
-        setChild(new_node);
-        return new_node;
+        int index = r.nextInt(nodes.size());
+        return nodes.get(index);
     }
-
 }
 
