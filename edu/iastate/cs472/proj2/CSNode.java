@@ -165,7 +165,7 @@ public class CSNode
 
     public int getGameScore() {
         if (data.getLegalMoves(player) == null) {
-            return player == CheckersData.RED ? -1 : 1;
+            return player == CheckersData.RED ? 1 : -1;
         }
         return (int) data.getEvaluation();
     }
