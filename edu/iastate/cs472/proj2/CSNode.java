@@ -36,6 +36,11 @@ public class CSNode
         return children == null;
     }
 
+    public void addChild(CSNode c)
+    {
+        children.add(c);
+    }
+
     public ArrayList<CSNode> getChildren()
     {
         return children;
@@ -47,6 +52,10 @@ public class CSNode
 
     public int getWins() {
         return wins;
+    }
+
+    public void setWins(int w) {
+        wins = w;
     }
 
     public void incPlayouts() {
@@ -81,7 +90,25 @@ public class CSNode
         System.out.println(data);
     }
 
-    // need to test
+    public void expandNode() {
+        CheckersMove[] moves = data.getLegalMoves(player);
+        ArrayList<CSNode> nodes = new ArrayList<CSNode>();
+        for (int i = 0; i < moves.length; i++) {
+            CheckersData temp_board = new CheckersData(data.getBoard());
+            temp_board.makeMove(moves[i]);
+            CSNode node = new CSNode(temp_board, this, null, swapPlayer(player));
+            node.prevMove = moves[i];
+            nodes.add(node);
+        }
+        setChildren(nodes);
+    }
+
+    public CSNode getRandomMove() {
+        Random r = new Random();
+        int index = r.nextInt(children.size());
+        return children.get(index);
+    }
+
     public CSNode expandRandomMove() {
         CheckersMove[] moves = data.getLegalMoves(player);
         ArrayList<CSNode> nodes = new ArrayList<CSNode>();
@@ -94,20 +121,28 @@ public class CSNode
         }
         setChildren(nodes);
         Random r = new Random();
-        int index = r.nextInt(nodes.size());
+        int index = r.nextInt(moves.length);
         return nodes.get(index);
+    }
+
+    public CSNode simulateRandomMove() {
+        CheckersMove[] moves = data.getLegalMoves(player);
+        Random r = new Random();
+        int index = r.nextInt(moves.length);
+        CheckersData temp_board = new CheckersData(data.getBoard());
+        temp_board.makeMove(moves[index]);
+        return new CSNode(temp_board, null, null, swapPlayer(player));
     }
 
     public int swapPlayer(int player) {
         return (player == CheckersData.RED ? CheckersData.BLACK : CheckersData.RED);
     }
 
-    public boolean isTerminal() {
-        return data.getLegalMoves(player) == null;
-    }
-
     public double getUCT() {
-        return ((double) wins / (double) playouts) + 1.41 * Math.sqrt(Math.log(parent.getPlayouts()) / (double) playouts);
+        if (playouts == 0) {
+            return 99999;
+        }
+        return ((double) wins / (double) playouts) + 1.41 * Math.sqrt(Math.log((double) parent.getPlayouts()) / (double) playouts);
     }
 
     public CSNode getBestUCT() {

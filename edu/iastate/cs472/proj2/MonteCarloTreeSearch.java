@@ -40,19 +40,25 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
 
         CSNode root = new CSNode(board, CheckersData.BLACK);
         CSTree gameTree = new CSTree(root);
-        for (int playouts = 0; playouts < 250; playouts++) {
+        for (int playouts = 0; playouts < 1000; playouts++) {
             CSNode leaf = select(gameTree);
-            CSNode child = expand(leaf);
+            CSNode child = leaf;
+            if (!child.isGameOver()) {
+                expand(child);
+            }
+            if (child.children != null) {
+                child = child.getRandomMove();
+            }
             int result = simulate(child);
+            //gameTree.printTree();
             backpropogate(result, child);
         }
-        
         // return best move
         return gameTree.getBestMove();
     }
     
     // selection
-    // start at root, use UCB
+    // start at root, use UCT
     public CSNode select(CSTree tree) {
         CSNode leaf = tree.getRoot();
         while (!leaf.isLeaf()) {
@@ -63,19 +69,20 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
 
     // expansion
     // choose random move from all moves
-    public CSNode expand(CSNode leaf) {
-        if (leaf.isGameOver()) {
-            return leaf;
-        }
-        return leaf.expandRandomMove();
+    public void expand(CSNode leaf) {
+        leaf.expandNode();
     }
 
     // simulation
     // get evaluation
     public int simulate(CSNode expandedNode) {
         CSNode temp = expandedNode;
+        if (temp.getGameScore() == 1) {
+            temp.getParent().setWins(-9999);
+            return 1;
+        }
         while (!temp.isGameOver()) {
-            temp = temp.expandRandomMove();
+            temp = temp.simulateRandomMove();
         }
         return temp.getGameScore();
     }
@@ -85,7 +92,10 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
         // go back up through each parent node, and add result to it
         // prob some kind of recursive helper method
         while (node != null) {
-            if (result == -1) {
+            if (result == -1 && node.player == CheckersData.BLACK) {
+                node.incWins();
+            }
+            if (result == 1 && node.player == CheckersData.RED) {
                 node.incWins();
             }
             node.incPlayouts();

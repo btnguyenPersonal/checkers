@@ -7,6 +7,7 @@ public class CSTree
 
     public CSTree(CSNode r) {
         root = r;
+        r.expandRandomMove();
     }
 
     public CSNode getRoot() {
@@ -25,13 +26,15 @@ public class CSTree
         root = e;
     }
 
-    public CSNode getPromisingNode() {
-        // find a promising node connected to root, then return it
-        return root;
-    }
-
     public CheckersMove getBestMove() {
-        CSNode bestNode = root.getBestUCT();
+        int highestPlayouts = root.children.get(0).getPlayouts();
+        CSNode bestNode = root.children.get(0);
+        for (int i = 1; i < root.children.size(); i++) {
+            if (root.children.get(i).getPlayouts() >= highestPlayouts) {
+                highestPlayouts = root.children.get(i).getPlayouts();
+                bestNode = root.children.get(i);
+            }
+        }
         return bestNode.prevMove;
     }
 
@@ -40,5 +43,25 @@ public class CSTree
             return a;
         }
         return b;
+    }
+
+    public void printTree() {
+        System.out.println("=================================root===========================");
+        printNode(root);
+        for (CSNode node : root.children) {
+            printNode(node);
+        }
+    }
+
+    public void printNode(CSNode n) {
+        System.out.println();
+        System.out.println(n.data);
+        System.out.println(n.getWins() + "/" + n.getPlayouts());
+        System.out.println();
+        //if (n.children != null) {
+        //    for (CSNode node : n.children) {
+        //        printNode(node);
+        //    }
+        //}
     }
 }
