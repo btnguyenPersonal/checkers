@@ -2,7 +2,7 @@ package edu.iastate.cs472.proj2;
 
 /**
  * 
- * @author 
+ * @author btnguyen Ben Nguyen
  *
  */
 
@@ -29,27 +29,18 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
         System.out.println(board);
         System.out.println();
 
-        //  function MONTE-CARLO-TREE-SEARCH(state) returns an action
-        //    tree <- NODE(state)
-        //    while TIME-REMAINING() do
-        //    	leaf <- SELECT(tree)
-        //    	child <- EXPAND(leaf)
-        //    	result <- SIMULATE(child)
-        //    	BACKPROPAGATE(result, child)
-        //    return the move in ACTIONS(state) whose node has highest number of playouts
-
-        CSNode root = new CSNode(board, CheckersData.BLACK);
-        CSTree gameTree = new CSTree(root);
+        CheckersNode root = new CheckersNode(board, CheckersData.BLACK);
+        CheckersTree gameTree = new CheckersTree(root);
         for (int playouts = 0; playouts < 1000; playouts++) {
-            CSNode leaf = select(gameTree);
-            CSNode child = leaf;
+            CheckersNode leaf = select(gameTree);
+            CheckersNode child = leaf;
             if (!child.isGameOver()) {
                 expand(child);
             }
             if (child.children != null) {
                 child = child.getRandomMove();
             }
-            int result = simulate(child);
+            double result = simulate(child);
             //gameTree.printTree();
             backpropogate(result, child);
         }
@@ -57,26 +48,26 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
         return gameTree.getBestMove();
     }
     
-    // selection
-    // start at root, use UCT
-    public CSNode select(CSTree tree) {
-        CSNode leaf = tree.getRoot();
+    // start at root, use UCB to select most promising node
+    public CheckersNode select(CheckersTree tree) {
+        CheckersNode leaf = tree.getRoot();
         while (!leaf.isLeaf()) {
-            leaf = leaf.getBestUCT();
+            leaf = leaf.getBestUCB();
         }
         return leaf;
     }
 
-    // expansion
-    // choose random move from all moves
-    public void expand(CSNode leaf) {
+    // choose random move from all possible moves from leaf position
+    public void expand(CheckersNode leaf) {
         leaf.expandNode();
     }
 
-    // simulation
-    // get evaluation
-    public int simulate(CSNode expandedNode) {
-        CSNode temp = expandedNode;
+    // get evaluation afer playing random simulated game
+    public double simulate(CheckersNode expandedNode) {
+        CheckersNode temp = expandedNode;
+        if (temp.data.isDraw()) {
+            return 0.5;
+        }
         if (temp.getGameScore() == 1) {
             temp.getParent().setWins(-9999);
             return 1;
@@ -87,11 +78,12 @@ public class MonteCarloTreeSearch extends AdversarialSearch {
         return temp.getGameScore();
     }
 
-    // back propogation
-    public void backpropogate(int result, CSNode node) {
-        // go back up through each parent node, and add result to it
-        // prob some kind of recursive helper method
+    // back propogation to bring the result back up the tree
+    public void backpropogate(double result, CheckersNode node) {
         while (node != null) {
+            if (result == 0.5) {
+                node.incHalfWins();
+            }
             if (result == -1 && node.player == CheckersData.BLACK) {
                 node.incWins();
             }

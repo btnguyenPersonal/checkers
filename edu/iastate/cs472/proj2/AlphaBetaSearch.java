@@ -2,10 +2,9 @@ package edu.iastate.cs472.proj2;
 
 /**
  *
- * @author btnguyen
+ * @author btnguyen Ben Nguyen
  *
  */
-
 
 /**
  * This class implements the Alpha-Beta pruning algorithm to find the best

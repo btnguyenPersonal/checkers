@@ -3,26 +3,29 @@ import java.util.Random;
 import java.util.ArrayList;
 
 /**
+ *
+ * @author btnguyen Ben Nguyen
+ *
  * Child-sibling node type for an n-ary tree.
  */
-public class CSNode
+public class CheckersNode
 {
-    public CSNode parent;
-    public ArrayList<CSNode> children;
+    public CheckersNode parent;
+    public ArrayList<CheckersNode> children;
     public CheckersData data;
     public int player;
     public CheckersMove prevMove;
     int playouts = 0;
-    int wins = 0;
+    double wins = 0;
 
-    public CSNode(){}
+    public CheckersNode(){}
 
-    public CSNode(CheckersData data, int player)
+    public CheckersNode(CheckersData data, int player)
     {
         this(data, null, null, player);
     }
 
-    public CSNode(CheckersData data, CSNode parent, ArrayList<CSNode> children, int player)
+    public CheckersNode(CheckersData data, CheckersNode parent, ArrayList<CheckersNode> children, int player)
     {
         this.parent = parent;
         this.children = children;
@@ -36,21 +39,25 @@ public class CSNode
         return children == null;
     }
 
-    public void addChild(CSNode c)
+    public void addChild(CheckersNode c)
     {
         children.add(c);
     }
 
-    public ArrayList<CSNode> getChildren()
+    public ArrayList<CheckersNode> getChildren()
     {
         return children;
+    }
+
+    public void incHalfWins() {
+        wins += 0.5;
     }
 
     public void incWins() {
         wins++;
     }
 
-    public int getWins() {
+    public double getWins() {
         return wins;
     }
 
@@ -66,12 +73,12 @@ public class CSNode
         return playouts;
     }
 
-    public void setChildren(ArrayList<CSNode> children)
+    public void setChildren(ArrayList<CheckersNode> children)
     {
         this.children = children;
     }
 
-    public CSNode getParent()
+    public CheckersNode getParent()
     {
         return parent;
     }
@@ -92,30 +99,30 @@ public class CSNode
 
     public void expandNode() {
         CheckersMove[] moves = data.getLegalMoves(player);
-        ArrayList<CSNode> nodes = new ArrayList<CSNode>();
+        ArrayList<CheckersNode> nodes = new ArrayList<CheckersNode>();
         for (int i = 0; i < moves.length; i++) {
             CheckersData temp_board = new CheckersData(data.getBoard());
             temp_board.makeMove(moves[i]);
-            CSNode node = new CSNode(temp_board, this, null, swapPlayer(player));
+            CheckersNode node = new CheckersNode(temp_board, this, null, swapPlayer(player));
             node.prevMove = moves[i];
             nodes.add(node);
         }
         setChildren(nodes);
     }
 
-    public CSNode getRandomMove() {
+    public CheckersNode getRandomMove() {
         Random r = new Random();
         int index = r.nextInt(children.size());
         return children.get(index);
     }
 
-    public CSNode expandRandomMove() {
+    public CheckersNode expandRandomMove() {
         CheckersMove[] moves = data.getLegalMoves(player);
-        ArrayList<CSNode> nodes = new ArrayList<CSNode>();
+        ArrayList<CheckersNode> nodes = new ArrayList<CheckersNode>();
         for (int i = 0; i < moves.length; i++) {
             CheckersData temp_board = new CheckersData(data.getBoard());
             temp_board.makeMove(moves[i]);
-            CSNode node = new CSNode(temp_board, this, null, swapPlayer(player));
+            CheckersNode node = new CheckersNode(temp_board, this, null, swapPlayer(player));
             node.prevMove = moves[i];
             nodes.add(node);
         }
@@ -125,32 +132,32 @@ public class CSNode
         return nodes.get(index);
     }
 
-    public CSNode simulateRandomMove() {
+    public CheckersNode simulateRandomMove() {
         CheckersMove[] moves = data.getLegalMoves(player);
         Random r = new Random();
         int index = r.nextInt(moves.length);
         CheckersData temp_board = new CheckersData(data.getBoard());
         temp_board.makeMove(moves[index]);
-        return new CSNode(temp_board, null, null, swapPlayer(player));
+        return new CheckersNode(temp_board, null, null, swapPlayer(player));
     }
 
     public int swapPlayer(int player) {
         return (player == CheckersData.RED ? CheckersData.BLACK : CheckersData.RED);
     }
 
-    public double getUCT() {
+    public double getUCB() {
         if (playouts == 0) {
             return 99999;
         }
         return ((double) wins / (double) playouts) + 1.41 * Math.sqrt(Math.log((double) parent.getPlayouts()) / (double) playouts);
     }
 
-    public CSNode getBestUCT() {
-        double max = children.get(0).getUCT();
+    public CheckersNode getBestUCB() {
+        double max = children.get(0).getUCB();
         int index = 0;
         for (int i = 1; i < children.size(); i++) {
-            if (max < children.get(i).getUCT()) {
-                max = children.get(i).getUCT();
+            if (max < children.get(i).getUCB()) {
+                max = children.get(i).getUCB();
                 index = i;
             }
         }
